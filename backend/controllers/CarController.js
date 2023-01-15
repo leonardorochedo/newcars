@@ -222,8 +222,19 @@ module.exports = class CarController {
     }
 
     static async getAllCars(req, res) {
-        const Cars = await Car.find().sort('-createdAt')
+        const cars = await Car.find().sort('-createdAt')
 
-        res.status(200).json({ Cars })
+        res.status(200).json({ cars })
+    }
+
+    static async getAllUserCars(req, res) {
+        // get user by token
+        const token = getToken(req)
+        const user = await getUserByToken(token)
+
+        const cars = await Car.find({ 'user._id': user._id.toString() }).sort('-createdAt')
+
+        // send to frontend
+        res.status(200).json({ cars })
     }
 }
