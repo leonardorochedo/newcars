@@ -13,6 +13,7 @@ router.patch('/edit/:id', verifyToken, imageUpload.array('images'), CarControlle
 
 router.get('/mycars', verifyToken, CarController.getAllUserCars)
 router.patch('/sell/:id', verifyToken, CarController.sellCar)
+router.patch('/resale/:id', verifyToken, CarController.resaleCar)
 
 router.get('/:id', CarController.getCarById)
 router.get('/', CarController.getAllCars)

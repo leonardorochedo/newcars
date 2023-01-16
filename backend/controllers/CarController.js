@@ -237,6 +237,41 @@ module.exports = class CarController {
 
     }
 
+    static async resaleCar(req, res) {
+        
+        const id = req.params.id
+
+        const CarExistis = await Car.findOne({_id: id}) // search for Car in mongo
+
+        if(!CarExistis) {
+            res.status(404).json({message: "Carro não encontrado!"})
+            return
+        }
+
+        const car = CarExistis
+
+        const available = false
+
+        car.available = true
+
+        try {
+            // returns Car updated data
+            await Car.findOneAndUpdate(
+                {_id: car._id}, // where
+                {$set: car}, // new data
+                {new: true} // formating data
+            )
+
+            res.status(200).json({
+                message: "Carro disponível para venda novamente!"
+            })
+        } catch (err) {
+            res.status(500).json({message: err})
+            return
+        }
+
+    }
+
     static async deleteCar(req, res) {
         const id = req.params.id
 
