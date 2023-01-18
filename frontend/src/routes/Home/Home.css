@@ -1,0 +1,24 @@
+.home-text h1 {
+  /* margin: 1rem 0; */
+}
+
+.cars-container {
+  margin: 1rem 2rem;
+}
+
+.car-card {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+
+  border: 3px solid black;
+}
+
+.car-image {
+  width: 100%;
+  height: 15rem;
+
+  background: center;
+  background-repeat: no-repeat;
+  background-color: #414141;
+}
