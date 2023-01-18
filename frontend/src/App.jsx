@@ -1,5 +1,6 @@
 // Rotas
 import { Home } from "./routes/Home/Home";
+import { Login } from "./routes/Login/Login";
 
 // Lib
 import { 
@@ -13,6 +14,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );

@@ -15,6 +15,7 @@ import { Context } from "../../context/UserContext";
 export function Header() {
   // variavel que diz se o usuario esta autenticado via token
   const authenticated = useContext(Context)
+  const logout = useContext(Context)
 
   return (
     <section className="header">
@@ -22,10 +23,10 @@ export function Header() {
         <button>
           <IoMdMenu size={24} />
         </button>
-        <a href="#">
+        <Link to="/">
           <img src={logo} alt="Logomarca" />
-        </a>
-        {authenticated ? <p>Logado</p> : <p>Entrar ou Cadastrar</p>}
+        </Link>
+        {authenticated ? <p onClick={logout}>Logout</p> : <Link to="/login"><p>Acessar</p></Link>}
       </header>
       
       <ToastContainer
