@@ -3,20 +3,39 @@ section.header {
   top: 0;
   width: 100vw;
 
-  background-color: grey;
+  background-color: var(--second-color);
 }
 
 header {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+
+  box-shadow: 0px 0px 6px 0px black;
 }
 
 header img {
-  width: 8rem;
+  width: 7rem;
 }
 
 header button {
   background: transparent;
   border: none;
+}
+
+header .button-header {
+  width: 5rem;
+}
+
+span.link {
+  text-decoration: none;
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+}
+
+span.link p {
+  margin-left: 0.25rem;
+  font-weight: 700;
+  text-decoration: none;
 }

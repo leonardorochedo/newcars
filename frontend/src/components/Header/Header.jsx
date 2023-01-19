@@ -3,30 +3,37 @@ import { useContext } from "react";
 // Style
 import "./Header.css";
 import logo from "../../assets/images/header/logo.png";
+
+// Icons
 import { IoMdMenu } from "react-icons/io";
+import { FiLogIn } from "react-icons/fi";
 
 // Lib's
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 // Context
-import { Context } from "../../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 
 export function Header() {
   // variavel que diz se o usuario esta autenticado via token
-  const authenticated = useContext(Context)
-  const logout = useContext(Context)
+  const authenticated = useContext(UserContext)
+  const logout = useContext(UserContext)
 
   return (
     <section className="header">
       <header>
-        <button>
-          <IoMdMenu size={24} />
-        </button>
+        <div className="button-header">
+          <button>
+            <IoMdMenu size={24} color="#FFF" />
+          </button>
+        </div>
         <Link to="/">
           <img src={logo} alt="Logomarca" />
         </Link>
-        {authenticated ? <p onClick={logout}>Logout</p> : <Link to="/login"><p>Acessar</p></Link>}
+        <div className="button-header">
+          {authenticated ? <p onClick={logout}>Logout</p> : <Link to="/login" className="link"><span className="link"><FiLogIn size={24} color="#FFF" /><p>Acessar</p></span></Link>}
+        </div>
       </header>
       
       <ToastContainer

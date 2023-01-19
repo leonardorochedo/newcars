@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import "./Home.css";
-import { Header } from "../../components/Header/Header";
 
 export function Home() {
   const [cars, setCars] = useState([]);
@@ -17,8 +16,6 @@ export function Home() {
   }, []);
 
   return (
-    <>
-      <Header />
       <section className="container">
         <div className="home-text">
           <h1>Veja os veículos disponíveis!</h1>
@@ -45,6 +42,5 @@ export function Home() {
           )}
         </div>
       </section>
-    </>
   );
 }

@@ -1,5 +1,7 @@
 :root {
   --primary-color: #ff5c1d;
+  --second-color: #3624db;
+  --third-color: #2c2099;
 }
 
 * {
@@ -13,6 +15,8 @@
 
   scroll-behavior: smooth;
 }
+
+/* SETTERS */
 
 h1 {
   font-family: "Roboto Condensed", sans-serif;
@@ -33,5 +37,58 @@ p {
 }
 
 .container {
-  margin: 10rem 0 5rem 0;
+  margin: 8rem 0 2rem 0;
+}
+
+.link {
+  text-decoration: none;
+}
+
+/* FORM */
+
+section.container-form {
+  display: flex;
+  flex-direction: column;
+
+  height: 63.8vh;
+}
+
+.form-container {
+  width: 75vw;
+}
+
+.form-buttons {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+
+  margin-top: 2rem;
+}
+
+.form-buttons p span {
+  text-decoration: none;
+  color: var(--second-color);
+}
+
+input {
+  border-radius: 5px;
+}
+
+input[type="submit"] {
+  background-color: transparent;
+  color: var(--second-color);
+  border: 2px solid var(--second-color);
+
+  width: 5rem;
+  height: 1.5rem;
+
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 700;
+
+  transition: 0.3s;
+}
+
+input[type="submit"]:hover {
+  background-color: var(--second-color);
+  color: #fff;
 }

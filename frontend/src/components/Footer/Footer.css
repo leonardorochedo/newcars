@@ -1,0 +1,16 @@
+footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  background-color: var(--third-color);
+}
+
+footer img {
+  width: 10rem;
+}
+
+footer p {
+  font-style: italic;
+  color: #fff;
+}
