@@ -6,6 +6,7 @@
   margin: 1rem 0;
   display: flex;
   flex-direction: column;
+  width: 80vw;
 
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px black;
@@ -18,4 +19,54 @@
   background: center;
   background-repeat: no-repeat;
   background-color: #414141;
+}
+
+.car-infos {
+  display: flex;
+  justify-content: space-around;
+
+  width: 100%;
+  height: 7rem;
+}
+
+.car-infos .car-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.car-infos .car-text * {
+  margin: 0.25rem 0;
+}
+
+.car-infos .car-text h4 {
+  font-style: italic;
+}
+
+.car-infos .car-text p {
+  color: #1fbb27;
+  font-weight: 700;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-info .user-image {
+  width: 3rem;
+  height: 3rem;
+  background-size: contain;
+
+  margin-bottom: 1rem;
+  border-radius: 100%;
+  border: 2px solid var(--second-color);
+}
+
+.user-info p {
+  font-style: italic;
+  color: var(--second-color);
+}
+
+p.warning {
+  margin-top: 10rem;
 }

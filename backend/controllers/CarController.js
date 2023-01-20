@@ -116,6 +116,17 @@ module.exports = class CarController {
         }
 
         const car = CarExistis
+
+        // get a user own
+        const token = getToken(req)
+        const user = await getUserByToken(token)
+
+        const CarOwner = car.user._id == user._id
+
+        if(!CarOwner) {
+            res.status(401).json({message: "Você não é autorizado para isso!"})
+            return
+        }
     
         // valores de entrada
         const {model, manufacturer, year, price, description, category} = req.body
@@ -183,6 +194,11 @@ module.exports = class CarController {
                 updatedData.images.push(image.filename)
             })
         }
+
+        // Update user when updated car
+        car.user.name = user.name
+        car.user.image = user.image
+        car.user.phone = user.phone
 
         try {
             // returns Car updated data

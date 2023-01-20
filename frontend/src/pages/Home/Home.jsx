@@ -30,15 +30,26 @@ export function Home() {
                     backgroundImage: `url(http://localhost:5000//images/cars/${car.images[0]})`,
                   }}
                 ></div>
-                <h3>{car.model}</h3>
-                <h4>Ano {car.year}</h4>
-                <p>
-                  <span className="bold">R$ {car.price}</span>
-                </p>
+                <div className="car-infos">
+                  <div className="car-text">
+                    <h3>{car.model}</h3>
+                    <h4>Ano {car.year}</h4>
+                    <p>R$ {car.price}</p>
+                  </div>
+                  <div className="user-info">
+                    {car.user.image && (
+                      <div className="user-image" style={{
+                        backgroundImage: `url(http://localhost:5000//images/users/${car.user.image})`,
+                      }}>
+                      </div>
+                    )}
+                    <p>{car.user.name}</p>
+                  </div>
+                </div>
               </div>
             ))}
           {cars.length === 0 && (
-            <p>Não há carros cadastrados ou disponíveis no momento!</p>
+            <p className="warning">Não há carros cadastrados ou disponíveis no momento 😞!</p>
           )}
         </div>
       </section>

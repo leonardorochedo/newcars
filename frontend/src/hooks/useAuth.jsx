@@ -38,26 +38,34 @@ export function useAuth() {
             })
 
             await authUser(data)
+
+            toast.success(msgText, {
+                position: "top-left",
+                autoClose: 3500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
         } catch (err) {
             msgText = err.response.data.message // pegando o error message mandado da API
-            msgType = 'error'
+            toast.error(msgText, {
+                position: "top-left",
+                autoClose: 3500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
         }
-
-        toast.success(msgText, {
-            position: "top-left",
-            autoClose: 3500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        })
     }
 
     async function login(user) {
         let msgText = 'Login realizado com sucesso!'
-        let msgType = 'sucess'
 
         try {
             const data = await api.post('/users/login', user).then((response) => {
@@ -65,26 +73,34 @@ export function useAuth() {
             })
 
             await authUser(data)
+
+            toast.success(msgText, {
+                position: "top-left",
+                autoClose: 3500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
         } catch (err) {
             msgText = err.response.data.message
-            msgType = 'error'
+            toast.error(msgText, {
+                position: "top-left",
+                autoClose: 3500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
         }
-
-        toast.success(msgText, {
-            position: "top-left",
-            autoClose: 3500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        })
     }
 
     function logout() {
         const msgText = 'Logout realizado com sucesso!'
-        const msgType = 'sucess'
 
         // logout geral
         setAuthenticate(false)

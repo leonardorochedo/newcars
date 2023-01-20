@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 
 const User = require('../models/User') // user database
+const Car = require('../models/Car') // Car database
 
 // Helpers
 const createUserToken = require('../helpers/create-user-token')
@@ -117,6 +117,8 @@ module.exports = class UserController {
         const token = getToken(req)
         const user = await getUserByToken(token)
 
+        const olderUser = user
+
         const {name, email, phone, password, confirmpassword} = req.body
 
         // validations
@@ -164,7 +166,7 @@ module.exports = class UserController {
         // image
         let image = ""
 
-        if(req.file) {
+        if(req.file.originalname) {
             // pegando a image da req em filename
             image = req.file.filename
         }
@@ -172,15 +174,22 @@ module.exports = class UserController {
         user.image = image
 
         try {
-            // returns user updated data
             await User.findOneAndUpdate(
                 {_id: user.id}, // where
                 {$set: user}, // new data
                 {new: true} // formating data
             )
 
+            // atualizar os carros do usuarios
+            await Car.updateMany({'user._id': user._id, 'user.name': olderUser.name}, {$set: {
+                'user.name': user.name,
+                'user.image': user.image,
+                'user.phone': user.phone,
+            }
+            })
+
             res.status(200).json({
-                message: "Usuáriuo atualizado com sucesso!"
+                message: "Usuário atualizado com sucesso!"
             })
         } catch (err) {
             res.status(500).json({message: err})
