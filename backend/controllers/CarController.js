@@ -121,7 +121,7 @@ module.exports = class CarController {
         const token = getToken(req)
         const user = await getUserByToken(token)
 
-        const CarOwner = car.user._id == user._id
+        const CarOwner = car.user._id.toString() == user._id
 
         if(!CarOwner) {
             res.status(401).json({message: "Você não é autorizado para isso!"})
@@ -189,9 +189,10 @@ module.exports = class CarController {
 
         if(images.length > 0) {
             updatedData.images = []
+            car.images = [] // limpando as que ja tinham
             // adicionando o nome de cada imagem ao array
             images.map((image) => {
-                updatedData.images.push(image.filename)
+                car.images.push(image.filename)
             })
         }
 

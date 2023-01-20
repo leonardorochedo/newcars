@@ -121,6 +121,13 @@ module.exports = class UserController {
 
         const {name, email, phone, password, confirmpassword} = req.body
 
+        const userIsAuthenticated = user._id == id
+
+        if(!userIsAuthenticated) {
+            res.status(401).json({message: "Você não é autorizado para isso!"})
+            return
+        }
+
         // validations
         if(!name) {
             res.status(422).json({message: 'O nome é obrigatório'})

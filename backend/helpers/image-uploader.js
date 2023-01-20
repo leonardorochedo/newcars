@@ -22,7 +22,7 @@ const imageStorage = multer.diskStorage({
             Date.now() +
             String(Math.floor(Math.random() * 100)) +
             path.extname(file.originalname))
-    } // filename: 21321312312312.jpg
+    } // 34523423423.ext
 })
 
 const imageUpload = multer({
