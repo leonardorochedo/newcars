@@ -117,8 +117,6 @@ module.exports = class UserController {
         const token = getToken(req)
         const user = await getUserByToken(token)
 
-        const olderUser = user
-
         const {name, email, phone, password, confirmpassword} = req.body
 
         const userIsAuthenticated = user._id == id
@@ -173,7 +171,9 @@ module.exports = class UserController {
         // image
         let image = ""
 
-        if(req.file.originalname) {
+        console.log(req.file)
+
+        if(req.file.filename) {
             // pegando a image da req em filename
             image = req.file.filename
         }
@@ -188,7 +188,7 @@ module.exports = class UserController {
             )
 
             // atualizar os carros do usuarios
-            await Car.updateMany({'user._id': user._id, 'user.name': olderUser.name}, {$set: {
+            await Car.updateMany({'user._id': user._id}, {$set: {
                 'user.name': user.name,
                 'user.image': user.image,
                 'user.phone': user.phone,

@@ -196,11 +196,6 @@ module.exports = class CarController {
             })
         }
 
-        // Update user when updated car
-        car.user.name = user.name
-        car.user.image = user.image
-        car.user.phone = user.phone
-
         try {
             // returns Car updated data
             await Car.findOneAndUpdate(
