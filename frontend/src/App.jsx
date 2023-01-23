@@ -18,15 +18,14 @@ import {
   Route,
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <BrowserRouter>
-    <Container>
-      <Header />
-      <ToastContainer
-        position="top-left"
-        autoClose={3500}
+    <ToastContainer
+        position="top-center"
+        autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -36,6 +35,9 @@ function App() {
         pauseOnHover
         theme="light"
       />
+    <Container>
+      <div className="invisible"></div>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

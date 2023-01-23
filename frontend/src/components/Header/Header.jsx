@@ -1,7 +1,7 @@
 // CONTEXT
-import { useState, useContext, createContext } from 'react';
-const UserContext = createContext()
+import { useContext, createContext } from 'react';
 import { useAuth } from "../../hooks/useAuth"
+const UserContext = createContext()
 
 // STYLE
 import "./Header.css";

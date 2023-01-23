@@ -20,16 +20,16 @@ export function useAuth() {
         }
     }, [])
 
-    async function authUser(data) {
+    function authUser(data) {
         setAuthenticate(true)
         localStorage.setItem('token', JSON.stringify(data.token)) // setando no localStorage
         navigate('/')
+        window.location.reload(true) // dar um refresh quando redirecionar
     }
 
     async function register(user) {
 
         let msgText = 'Cadastro realizado com sucesso!'
-        let msgType = 'sucess'
 
         try {
             // registrando o user e mandando o token para setar no localStorage
@@ -40,8 +40,8 @@ export function useAuth() {
             await authUser(data)
 
             toast.success(msgText, {
-                position: "top-left",
-                autoClose: 3500,
+                position: "top-center",
+                autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -52,8 +52,8 @@ export function useAuth() {
         } catch (err) {
             msgText = err.response.data.message // pegando o error message mandado da API
             toast.error(msgText, {
-                position: "top-left",
-                autoClose: 3500,
+                position: "top-center",
+                autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -75,8 +75,8 @@ export function useAuth() {
             await authUser(data)
 
             toast.success(msgText, {
-                position: "top-left",
-                autoClose: 3500,
+                position: "top-center",
+                autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -87,8 +87,8 @@ export function useAuth() {
         } catch (err) {
             msgText = err.response.data.message
             toast.error(msgText, {
-                position: "top-left",
-                autoClose: 3500,
+                position: "top-center",
+                autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -109,8 +109,8 @@ export function useAuth() {
         navigate('/')
 
         toast.success(msgText, {
-            position: "top-left",
-            autoClose: 3500,
+            position: "top-center",
+            autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
