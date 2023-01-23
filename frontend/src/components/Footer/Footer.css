@@ -12,7 +12,15 @@ footer img {
   width: 10rem;
 }
 
-footer p {
-  font-style: italic;
+.social-medias {
+  width: 10rem;
+}
+
+.social-medias p {
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.social-medias cite {
   color: #fff;
 }
