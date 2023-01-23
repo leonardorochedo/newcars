@@ -37,15 +37,25 @@ function LoginPage() {
 
     return (
         <section className="container container-form">
-            <h1>Entre com sua conta!</h1>
-            <form onSubmit={handleSubmit} className="form-container">
-                <Input type="email" name="email" id="email"  handleChangeInput={handleChangeInput} text="Email" placeholder="Digite seu e-mail" />
-                <Input type="password" name="password" id="password"  handleChangeInput={handleChangeInput} text="Senha" placeholder="Digite sua senha" />
-                <div className="form-buttons">
-                    <input type="submit" value="Entrar" />
-                    <p>Não tem uma conta? <Link to="/register" className="link"><span>Clique aqui.</span></Link></p>
-                </div>
-            </form>
+            {context.authenticated
+            ? (
+                <>
+                    <h1>Você já está logado!</h1>
+                    <Link to="/" className="link comeback" >Voltar para a página inicial.</Link>
+                </>
+            ) : (
+                <>
+                    <h1>Entre com sua conta!</h1>
+                    <form onSubmit={handleSubmit} className="form-container">
+                        <Input type="email" name="email" id="email"  handleChangeInput={handleChangeInput} text="Email" placeholder="Digite seu e-mail" />
+                        <Input type="password" name="password" id="password"  handleChangeInput={handleChangeInput} text="Senha" placeholder="Digite sua senha" />
+                        <div className="form-buttons">
+                            <input type="submit" value="Entrar" />
+                            <p>Não tem uma conta? <Link to="/register" className="link"><span>Clique aqui.</span></Link></p>
+                        </div>
+                    </form>
+                </>
+        )}
         </section>
     );
 }

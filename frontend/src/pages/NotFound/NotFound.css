@@ -1,10 +1,4 @@
 .notfound-container {
   display: flex;
   flex-direction: column;
-
-  height: 63.8vh;
-}
-
-.notfound-container h1 {
-  margin-bottom: 1rem;
 }
