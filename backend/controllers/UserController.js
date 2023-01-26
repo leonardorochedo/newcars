@@ -240,4 +240,16 @@ module.exports = class UserController {
         }
     }
 
+    static async getUserByToken(req, res) {
+        // check if user exist
+        try {
+            const token = getToken(req)
+            const user = await getUserByToken(token)
+
+            res.status(200).json({user})
+        } catch(err) {
+            res.status(404).json({message: 'Usuário não encontrado!'})
+        }
+    }
+
 }

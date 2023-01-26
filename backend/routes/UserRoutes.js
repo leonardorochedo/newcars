@@ -9,6 +9,7 @@ const { imageUpload } = require('../helpers/image-uploader')
 // rotas
 router.post('/register', UserController.register)
 router.post('/login', UserController.login)
+router.get('/single', UserController.getUserByToken) // via token
 router.get('/:id', UserController.getUserById)
 
 // rotas que precisam de verificacao
