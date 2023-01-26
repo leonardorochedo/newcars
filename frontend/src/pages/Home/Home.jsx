@@ -23,6 +23,7 @@ export function Home() {
         <div className="cars-container">
           {cars.length > 0 &&
             cars.map((car) => (
+              <Link to={`/cars/${car._id}`} className="car-link" key={car._id}>
               <div className="car-card" key={car._id}>
                 <div
                   className="car-image"
@@ -47,6 +48,7 @@ export function Home() {
                   </div>
                 </div>
               </div>
+              </Link>
             ))}
           {cars.length === 0 && (
             <p className="warning">Não há carros cadastrados ou disponíveis no momento 😞!</p>

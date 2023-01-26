@@ -1,0 +1,58 @@
+.swiper {
+  background-color: #26262e;
+
+  width: 70vw;
+  height: 15rem;
+
+  border-radius: 20px;
+  border: 1px solid var(--primary-color);
+
+  margin-bottom: 1rem;
+}
+
+.swiper .car-swiper {
+  /* width: 100%; */
+  height: 100%;
+
+  background: center;
+  background-repeat: no-repeat;
+  background-color: #414141;
+  background-size: cover;
+}
+
+.title-car {
+  display: flex;
+  justify-content: space-around;
+}
+
+.title-car .price {
+  color: green;
+}
+
+h3.desc {
+  margin: 1rem 0;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.description p {
+  margin-right: auto;
+}
+
+.contact-owner .user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-owner .user-info .user-image {
+  margin: 1rem 0;
+}
+
+.contact-owner .user-info .cell {
+  display: flex;
+  flex-direction: row;
+}

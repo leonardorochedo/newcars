@@ -6,6 +6,9 @@ import { NotFound } from "./pages/NotFound/NotFound";
 import { Login } from "./pages/UserPages/Login/Login";
 import { Register } from "./pages/UserPages/Register/Register";
 
+// CARPAGES
+import { CarView } from "./pages/CarPages/CarView/CarView";
+
 // COMPONENTS
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
@@ -42,6 +45,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/cars/:id" element={<CarView />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
       <Footer />

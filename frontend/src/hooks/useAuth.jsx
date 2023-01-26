@@ -20,7 +20,7 @@ export function useAuth() {
         }
     }, [])
 
-    function authUser(data) {
+    async function authUser(data) {
         setAuthenticate(true)
         localStorage.setItem('token', JSON.stringify(data.token)) // setando no localStorage
         navigate('/')
@@ -73,7 +73,7 @@ export function useAuth() {
             })
 
             await authUser(data)
-
+            
             toast.success(msgText, {
                 position: "top-center",
                 autoClose: 5000,
