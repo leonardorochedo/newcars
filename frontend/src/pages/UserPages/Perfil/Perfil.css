@@ -12,7 +12,7 @@
   border: 2px dashed var(--primary-color);
 }
 
-img.perfil {
+.user-perfil img.perfil {
   width: 12rem;
   height: 12rem;
 
