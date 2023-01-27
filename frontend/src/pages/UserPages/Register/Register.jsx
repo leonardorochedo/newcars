@@ -11,10 +11,10 @@ import { Input } from "../../../components/Input/Input";
 
 export function Register() {
 
-    const { authenticated, register, login, logout } = useAuth() // pegando os dados de useAuth
+    const { authenticated, register, login, deleteUser, logout } = useAuth() // pegando os dados de useAuth
 
     return (
-        <UserContext.Provider value={{authenticated, register, login, logout}}>
+        <UserContext.Provider value={{authenticated, register, login, deleteUser, logout}}>
             <RegisterPage />
         </UserContext.Provider>
     )
@@ -40,12 +40,12 @@ function RegisterPage() {
             {context.authenticated
             ? (
                 <>
-                    <h1>Você já está logado!</h1>
+                    <h1 className="title">Você já está logado!</h1>
                     <Link to="/" className="link comeback" >Voltar para a página inicial.</Link>
                 </>
             ) : (
                 <>
-                    <h1>Registre sua conta!</h1>
+                    <h1 className="title">Registre sua conta!</h1>
                     <form onSubmit={handleSubmit} className="form-container">
                         <Input type="name" name="name" id="name"  handleChangeInput={handleChangeInput} text="Nome" placeholder="Digite seu nome" />
                         <Input type="text" name="phone" id="phone"  handleChangeInput={handleChangeInput} text="Celular" placeholder="Digite sua número de celular" />

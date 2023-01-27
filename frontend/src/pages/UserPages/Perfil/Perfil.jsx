@@ -41,23 +41,32 @@ function PerfilPage() {
 
     return (
         <section className="container">
-            <div className="user-perfil">
-                <h1>Gerenciamento de perfil</h1>
-                {user.image ? (
-                    <div className="user-image" style={{
-                        backgroundImage: `url(http://localhost:5000//images/users/${user.image})`,
-                        }}>
-                    </div>
-                ) : (
-                    <img src={userNoImage} alt="Foto de perfil" className="perfil" />
-                )}
-                <h2>{user.name}</h2>
-            </div>
-            <div className="user-links">
-                <Link to="/users/edit/:id" className="user-link" ><HiOutlinePencilAlt />Editar Perfil</Link>
-                <p onClick={context.logout} className="user-link" ><FiLogOut />Sair</p>
-                <Link to="/users/delete/:id" className="user-link delete-link" ><FiTrash2 />Excluir Conta</Link>
-            </div>
+            {context.authenticated ? (
+                <>
+                <div className="user-perfil">
+                    <h1 className="title">Gerenciamento de perfil</h1>
+                    {user.image ? (
+                        <div className="user-image" style={{
+                            backgroundImage: `url(http://localhost:5000//images/users/${user.image})`,
+                            }}>
+                        </div>
+                    ) : (
+                        <img src={userNoImage} alt="Foto de perfil" className="perfil" />
+                    )}
+                    <h2>{user.name}</h2>
+                </div>
+                <div className="user-links">
+                    <Link to={`/users/edit/${user._id}`} className="user-link" ><HiOutlinePencilAlt />Editar Perfil</Link>
+                    <p onClick={context.logout} className="user-link" ><FiLogOut />Sair</p>
+                    <Link to={`/users/delete/${user._id}`} className="user-link delete-link" ><FiTrash2 />Excluir Conta</Link>
+                </div>
+                </>
+            ) : (
+                <>
+                    <h1 className="title">Você não está logado!</h1>
+                    <Link to="/login" className="link comeback" >Entre com sua conta.</Link>
+                </>
+            )}
         </section>
     );
 }

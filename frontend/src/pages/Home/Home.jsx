@@ -18,9 +18,7 @@ export function Home() {
 
   return (
       <section className="container">
-        <div className="home-text">
-          <h1>Veja os veículos disponíveis!</h1>
-        </div>
+        <h1 className="title">Veja os veículos disponíveis!</h1>
         <div className="cars-container">
           {cars.length > 0 &&
             cars.map((car) => (

@@ -6,6 +6,8 @@ import { NotFound } from "./pages/NotFound/NotFound";
 import { Login } from "./pages/UserPages/Login/Login";
 import { Register } from "./pages/UserPages/Register/Register";
 import { Perfil } from "./pages/UserPages/Perfil/Perfil";
+import { Edit } from "./pages/UserPages/Edit/Edit";
+import { Delete } from "./pages/UserPages/Delete/Delete";
 
 // CARPAGES
 import { CarView } from "./pages/CarPages/CarView/CarView";
@@ -44,9 +46,13 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        {/* USER */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/users/:id" element={<Perfil />} />
+        <Route path="/users/edit/:id" element={<Edit />} />
+        <Route path="/users/delete/:id" element={<Delete />} />
+        {/* CAR */}
         <Route path="/cars/:id" element={<CarView />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>

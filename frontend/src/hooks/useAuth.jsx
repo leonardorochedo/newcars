@@ -99,6 +99,46 @@ export function useAuth() {
         }
     }
 
+    async function deleteUser(id) {
+        let msgText = 'Conta deletada com sucesso!'
+
+        try {
+            const data = await api.delete(`/users/delete/${id}`).then((response) => {
+                return response.data
+            })
+
+            setAuthenticate(false)
+            localStorage.removeItem('token')
+            api.defaults.headers.Authorization = undefined
+            navigate('/')
+
+            window.location.reload(true) // dar um refresh quando redirecionar
+            
+            toast.success(msgText, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        } catch (err) {
+            msgText = err.response.data.message
+            toast.error(msgText, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        }
+    }
+
     function logout() {
         const msgText = 'Logout realizado com sucesso!'
 
@@ -123,5 +163,5 @@ export function useAuth() {
     }
 
 
-    return { authenticated, register, login, logout }
+    return { authenticated, register, login, deleteUser, logout }
 }

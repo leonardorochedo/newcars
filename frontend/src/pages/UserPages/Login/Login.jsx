@@ -11,10 +11,10 @@ import { Input } from "../../../components/Input/Input";
 
 export function Login() {
 
-    const { authenticated, register, login, logout } = useAuth() // pegando os dados de useAuth
+    const { authenticated, register, login, deleteUser, logout } = useAuth() // pegando os dados de useAuth
 
     return (
-        <UserContext.Provider value={{authenticated, register, login, logout}}>
+        <UserContext.Provider value={{authenticated, register, login, deleteUser, logout}}>
             <LoginPage />
         </UserContext.Provider>
     )
@@ -40,12 +40,12 @@ function LoginPage() {
             {context.authenticated
             ? (
                 <>
-                    <h1>Você já está logado!</h1>
+                    <h1 className="title">Você já está logado!</h1>
                     <Link to="/" className="link comeback" >Voltar para a página inicial.</Link>
                 </>
             ) : (
                 <>
-                    <h1>Entre com sua conta!</h1>
+                    <h1 className="title">Entre com sua conta!</h1>
                     <form onSubmit={handleSubmit} className="form-container">
                         <Input type="email" name="email" id="email"  handleChangeInput={handleChangeInput} text="Email" placeholder="Digite seu e-mail" />
                         <Input type="password" name="password" id="password"  handleChangeInput={handleChangeInput} text="Senha" placeholder="Digite sua senha" />

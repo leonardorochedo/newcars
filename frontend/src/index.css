@@ -43,6 +43,10 @@ a {
   cursor: pointer;
 }
 
+h1.title {
+  margin-bottom: 1rem;
+}
+
 .container {
   margin-top: 8rem;
 }
@@ -99,5 +103,25 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
   background-color: var(--second-color);
+  color: #fff;
+}
+
+button.delete-button {
+  border-radius: 5px;
+  background-color: transparent;
+  color: #eb0c0c;
+  border: 2px solid #eb0c0c;
+
+  width: 100%;
+  height: 1.5rem;
+
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 700;
+
+  transition: 0.3s;
+}
+
+button.delete-button:hover {
+  background-color: #eb0c0c;
   color: #fff;
 }
