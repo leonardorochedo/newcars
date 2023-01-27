@@ -7,6 +7,7 @@ const UserContext = createContext()
 // STYLE
 import "./Header.css";
 import logo from "../../assets/images/header/logo.png";
+import userNoImage from "../../assets/images/nopic.png";
 
 // ICONS
 import { IoMdMenu } from "react-icons/io";
@@ -56,10 +57,14 @@ function HeaderPage() {
           {context.authenticated ?
           <Link to={`/users/${user._id}`} className="link">
             <div className="user-header">
-              <div className="user-image" style={{
-                backgroundImage: `url(http://localhost:5000//images/users/${user.image})`,
-              }}>
-              </div>
+              {user.image ? (
+                <div className="user-image" style={{
+                  backgroundImage: `url(http://localhost:5000//images/users/${user.image})`,
+                }}>
+                </div>
+              ) : (
+                <img src={userNoImage} alt="Foto de perfil" className="perfil" />
+              )}
               <p>{user.name.split(" ")[0].toUpperCase()}</p>
             </div>
           </Link>

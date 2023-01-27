@@ -108,6 +108,8 @@ export function useAuth() {
         api.defaults.headers.Authorization = undefined
         navigate('/')
 
+        window.location.reload(true) // dar um refresh quando redirecionar
+
         toast.success(msgText, {
             position: "top-center",
             autoClose: 5000,
