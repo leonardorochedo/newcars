@@ -1,0 +1,49 @@
+.user-perfil {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-perfil .user-image {
+  width: 12rem;
+  height: 12rem;
+  background-size: contain;
+
+  margin: 1rem 0;
+  border-radius: 100%;
+  border: 2px solid var(--primary-color);
+}
+
+.user-links {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: 20vh;
+
+  margin-top: 2rem;
+}
+
+.user-link {
+  font-weight: 400;
+  font-family: "Roboto Condensed", sans-serif;
+  text-decoration: none;
+  text-align: center;
+
+  color: #fff;
+  text-transform: uppercase;
+
+  width: 50vw;
+  height: 2rem;
+  background-color: var(--second-color);
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 2rem;
+}
+
+.delete-link {
+  margin-top: 2rem;
+  background-color: #eb0c0c;
+}

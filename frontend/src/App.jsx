@@ -5,6 +5,7 @@ import { NotFound } from "./pages/NotFound/NotFound";
 // USERPAGES
 import { Login } from "./pages/UserPages/Login/Login";
 import { Register } from "./pages/UserPages/Register/Register";
+import { Perfil } from "./pages/UserPages/Perfil/Perfil";
 
 // CARPAGES
 import { CarView } from "./pages/CarPages/CarView/CarView";
@@ -45,6 +46,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/users/:id" element={<Perfil />} />
         <Route path="/cars/:id" element={<CarView />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
