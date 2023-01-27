@@ -234,6 +234,7 @@ module.exports = class UserController {
 
         try {
             await User.deleteOne({id: id})
+            await Car.deleteMany({'user._id': user._id})
             res.status(202).json({message: 'Usuário deletado com sucesso!'})
         } catch(err) {
             res.status(500).json({message: err})
