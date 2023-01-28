@@ -224,17 +224,25 @@ module.exports = class UserController {
     static async deleteUser(req, res) {
         const id = req.params.id
 
+        // check if user exist
         const user = await User.findById(id)
-
-        // check if product not exist
         if(!user) {
             res.status(404).json({message: 'Usuário não encontrado!'})
             return
         }
 
+        // check if user auth
+        const token = getToken(req)
+        const userToken = await getUserByToken(token)
+        const authenticatedUser = userToken._id.toString() ==  id
+        if(!authenticatedUser) {
+            res.status(401).json({message: 'Você não é autorizado para isso!'})
+            return
+        }
+
         try {
-            await User.deleteOne({id: id})
-            await Car.deleteMany({'user._id': user._id})
+            await User.findOneAndDelete({_id: id})
+            await Car.deleteMany({'user._id': id})
             res.status(202).json({message: 'Usuário deletado com sucesso!'})
         } catch(err) {
             res.status(500).json({message: err})
