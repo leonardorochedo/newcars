@@ -65,7 +65,7 @@ function EditPage() {
                             size="rem12" />
                     )}
                     <form onSubmit={handleSubmit} className="form-container">
-                        <Input text="Imagem" type="file" name="image" handleChangeInput={onFileChange} />
+                        <Input type="file" name="image" handleChangeInput={onFileChange} text="Imagem" />
                         <Input type="name" value={user.name} name="name" id="name"  handleChangeInput={handleChangeInput} text="Nome" placeholder="Digite seu nome" />
                         <Input type="text" value={user.phone} name="phone" id="phone"  handleChangeInput={handleChangeInput} text="Celular" placeholder="Digite sua número de celular" />
                         <Input type="email" value={user.email} name="email" id="email"  handleChangeInput={handleChangeInput} text="Email" placeholder="Digite seu e-mail" />

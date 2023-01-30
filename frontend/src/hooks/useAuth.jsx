@@ -143,12 +143,17 @@ export function useAuth() {
         let msgText = 'Usuário atualizado com sucesso!'
 
         try {
-            const data = await api.patch(`/users/edit/${id}`, user).then((response) => {
+            const data = await api.patch(`/users/edit/${id}`, user, {
+                headers: {
+                    'Content-Type': 'multipart/form-data' // backend entender que esta indo uma imagem
+                }
+            }).then((response) => {
                 return response.data
             })
-
-            await authUser(data)
             
+            navigate('/')
+            window.location.reload(true)
+
             toast.success(msgText, {
                 position: "top-center",
                 autoClose: 5000,

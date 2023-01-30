@@ -2,10 +2,13 @@ import api from "../../../utils/api";
 
 import { useState, useEffect } from "react";
 
+// RRD
 import { useParams } from 'react-router-dom';
 
-import "./CarView.css"
+// CSS
+import "./CarView.css";
 import userNoImage from "../../../assets/images/nopic.png";
+import { RoundImage } from "../../../components/RoundImage/RoundImage";
 import { FiSmartphone } from "react-icons/fi";
 
 // SWIPER
@@ -83,12 +86,9 @@ export function CarView() {
                     <div className="contact-owner">
                         <div className="user-info">
                             {car.user.image ? (
-                                <div className="user-image" style={{
-                                    backgroundImage: `url(http://localhost:5000//images/users/${car.user.image})`,
-                                }}>
-                                </div>
+                                <RoundImage src={`http://localhost:5000//images/users/${car.user.image}`} alt={car.user.name} size="rem3" />
                             ) : (
-                                <img src={userNoImage} alt="Foto de perfil" className="perfil" />
+                                <RoundImage src={userNoImage} alt={car.user.name} size="rem3" />
                             )}
                             <p>{car.user.name}</p>
                             <a href={`https://api.whatsapp.com/send?phone=+55${car.user.phone}&text=Olá ${car.user.name}, vi seu anuncio na NewCars e tenho interesse em seu veículo!`} target="_blank">

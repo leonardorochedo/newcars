@@ -58,7 +58,7 @@ function HeaderPage() {
           <Link to={`/users/${user._id}`} className="link">
             <div className="user-header">
               {user.image ? (
-                <RoundImage src={`http://localhost:5000//images/users/${user.image})`} alt={user.name} size="rem3" />
+                <RoundImage src={`http://localhost:5000//images/users/${user.image}`} alt={user.name} size="rem3" />
               ) : (
                 <RoundImage src={userNoImage} alt={user.name} size="rem3" />
               )}
