@@ -8,8 +8,10 @@ const UserContext = createContext()
 // RRD
 import { Link, useParams } from "react-router-dom";
 
+// CSS
 import "./Perfil.css";
 import userNoImage from "../../../assets/images/nopic.png";
+import { RoundImage } from "../../../components/RoundImage/RoundImage";
 import { FiLogOut, FiTrash2 } from "react-icons/fi";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 
@@ -46,12 +48,9 @@ function PerfilPage() {
                 <div className="user-perfil">
                     <h1 className="title">Gerenciamento de perfil</h1>
                     {user.image ? (
-                        <div className="user-image" style={{
-                            backgroundImage: `url(http://localhost:5000//images/users/${user.image})`,
-                            }}>
-                        </div>
+                        <RoundImage src={`http://localhost:5000//images/users/${user.image}`} alt={user.name} size="rem12" />
                     ) : (
-                        <img src={userNoImage} alt="Foto de perfil" className="perfil" />
+                        <RoundImage src={userNoImage} alt={user.name} size="rem12" />
                     )}
                     <h2>{user.name}</h2>
                 </div>

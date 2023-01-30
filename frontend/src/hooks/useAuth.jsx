@@ -139,6 +139,41 @@ export function useAuth() {
         }
     }
 
+    async function editUser(user, id) {
+        let msgText = 'Usuário atualizado com sucesso!'
+
+        try {
+            const data = await api.patch(`/users/edit/${id}`, user).then((response) => {
+                return response.data
+            })
+
+            await authUser(data)
+            
+            toast.success(msgText, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        } catch (err) {
+            msgText = err.response.data.message
+            toast.error(msgText, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        }
+    }
+
     function logout() {
         const msgText = 'Logout realizado com sucesso!'
 
@@ -163,5 +198,5 @@ export function useAuth() {
     }
 
 
-    return { authenticated, register, login, deleteUser, logout }
+    return { authenticated, register, login, deleteUser, editUser, logout }
 }

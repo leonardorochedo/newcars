@@ -68,6 +68,7 @@ section.container-form {
 
 .form-container {
   width: 75vw;
+  margin-bottom: 1rem;
 }
 
 .form-buttons {

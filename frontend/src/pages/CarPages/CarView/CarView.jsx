@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 
 import "./CarView.css"
+import userNoImage from "../../../assets/images/nopic.png";
 import { FiSmartphone } from "react-icons/fi";
 
 // SWIPER
@@ -81,11 +82,13 @@ export function CarView() {
                     </div>
                     <div className="contact-owner">
                         <div className="user-info">
-                            {car.user.image && (
-                            <div className="user-image" style={{
-                                backgroundImage: `url(http://localhost:5000//images/users/${car.user.image})`,
-                            }}>
-                            </div>
+                            {car.user.image ? (
+                                <div className="user-image" style={{
+                                    backgroundImage: `url(http://localhost:5000//images/users/${car.user.image})`,
+                                }}>
+                                </div>
+                            ) : (
+                                <img src={userNoImage} alt="Foto de perfil" className="perfil" />
                             )}
                             <p>{car.user.name}</p>
                             <a href={`https://api.whatsapp.com/send?phone=+55${car.user.phone}&text=Olá ${car.user.name}, vi seu anuncio na NewCars e tenho interesse em seu veículo!`} target="_blank">

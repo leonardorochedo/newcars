@@ -1,19 +1,19 @@
 import api from "../../utils/api";
-import { useState, useEffect, useContext, createContext } from 'react';
+
 // CONTEXT
+import { useState, useEffect, useContext, createContext } from 'react';
 import { useAuth } from "../../hooks/useAuth"
 const UserContext = createContext()
 
-// STYLE
+// CSS
 import "./Header.css";
 import logo from "../../assets/images/header/logo.png";
 import userNoImage from "../../assets/images/nopic.png";
-
-// ICONS
+import { RoundImage } from "../RoundImage/RoundImage";
 import { IoMdMenu } from "react-icons/io";
 import { FiLogIn } from "react-icons/fi";
 
-// LIB'S
+// RRD
 import { Link } from "react-router-dom";
 
 export function Header() {
@@ -58,12 +58,9 @@ function HeaderPage() {
           <Link to={`/users/${user._id}`} className="link">
             <div className="user-header">
               {user.image ? (
-                <div className="user-image" style={{
-                  backgroundImage: `url(http://localhost:5000//images/users/${user.image})`,
-                }}>
-                </div>
+                <RoundImage src={`http://localhost:5000//images/users/${user.image})`} alt={user.name} size="rem3" />
               ) : (
-                <img src={userNoImage} alt="Foto de perfil" className="perfil" />
+                <RoundImage src={userNoImage} alt={user.name} size="rem3" />
               )}
               <p>{user.name.split(" ")[0].toUpperCase()}</p>
             </div>

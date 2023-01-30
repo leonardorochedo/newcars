@@ -2,10 +2,13 @@ import api from "../../utils/api";
 
 import { useState, useEffect } from "react";
 
+// RRD
 import { Link } from "react-router-dom";
 
+// CSS
 import "./Home.css";
 import userNoImage from "../../assets/images/nopic.png";
+import { RoundImage } from "../../components/RoundImage/RoundImage";
 
 export function Home() {
   const [cars, setCars] = useState([]);
@@ -38,12 +41,9 @@ export function Home() {
                   </div>
                   <div className="user-info">
                     {car.user.image ? (
-                      <div className="user-image" style={{
-                        backgroundImage: `url(http://localhost:5000//images/users/${car.user.image})`,
-                      }}>
-                      </div>
+                      <RoundImage src={`http://localhost:5000//images/users/${car.user.image})`} alt={car.user.name} size="rem3" />
                     ) : (
-                      <img src={userNoImage} alt="Foto de perfil" className="perfil" />
+                      <RoundImage src={userNoImage} alt={car.user.name} size="rem3" />
                     )}
                     <p>{car.user.name}</p>
                   </div>

@@ -3,7 +3,7 @@
   flex-direction: column;
 }
 
-.user-perfil .user-image {
+/* .user-perfil .user-image {
   width: 12rem;
   height: 12rem;
   background-size: contain;
@@ -18,7 +18,7 @@
 
   border-radius: 100%;
   border: 2px dashed var(--primary-color);
-}
+} */
 
 .user-links {
   display: flex;

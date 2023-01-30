@@ -48,7 +48,8 @@ h3.desc {
   flex-direction: column;
 }
 
-.contact-owner .user-info .user-image {
+.contact-owner .user-info .user-image,
+.contact-owner .user-info img.perfil {
   margin: 1rem 0;
 }
 
