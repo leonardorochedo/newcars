@@ -156,8 +156,12 @@ module.exports = class UserController {
 
         user.phone = phone
 
+        if(!password || !confirmpassword) {
+            res.status(422).json({message: 'As senhas são obrigatórias!'})
+            return
+        }
         if(password != confirmpassword) {
-            res.status(422).json({message: 'As senhas são conferem!'})
+            res.status(422).json({message: 'As senhas não conferem!'})
             return
         } else if(password === confirmpassword && password != null) {
 
@@ -171,9 +175,7 @@ module.exports = class UserController {
         // image
         let image = ""
 
-        console.log(req.file)
-
-        if(req.file.filename) {
+        if(req.file) {
             // pegando a image da req em filename
             image = req.file.filename
         }
@@ -182,13 +184,13 @@ module.exports = class UserController {
 
         try {
             await User.findOneAndUpdate(
-                {_id: user.id}, // where
+                {_id: user._id}, // where
                 {$set: user}, // new data
                 {new: true} // formating data
             )
 
             // atualizar os carros do usuarios
-            await Car.updateMany({'user._id': user._id}, {$set: {
+            await Car.updateMany({'user._id': id}, {$set: {
                 'user.name': user.name,
                 'user.image': user.image,
                 'user.phone': user.phone,

@@ -8,7 +8,8 @@ app.use(express.json())
 
 // Solve CORS
 app.use(cors({
-    credentials: false
+    credentials: true,
+    origin: 'http://127.0.0.1:5173'
 }))
 
 // Public folder for images
