@@ -11,6 +11,7 @@ import logo from "../../assets/images/header/logo.png";
 import userNoImage from "../../assets/images/nopic.png";
 import { RoundImage } from "../RoundImage/RoundImage";
 import { IoMdMenu } from "react-icons/io";
+import { MdClose } from "react-icons/md";
 import { FiLogIn } from "react-icons/fi";
 
 // RRD
@@ -31,6 +32,7 @@ function HeaderPage() {
   const context = useContext(UserContext)
 
   const [user, setUser] = useState({_id: "", name: "", image: ""})
+  const [navStatus, setNavStatus] = useState(false)
 
   useEffect(() => {
     api.get("/users/single").then((response) => {
@@ -40,14 +42,16 @@ function HeaderPage() {
         image: response.data.user.image
       })
     });
-  }, [])
+  }, [context.authenticated])
 
   return (
     <section className="header">
       <header>
         <div className="button-header">
-          <button>
-            <IoMdMenu size={24} color="#FFF" />
+          <button onClick={() => setNavStatus(!navStatus)}>
+            {navStatus
+            ? <MdClose size={24} color="#FFF" />
+            : <IoMdMenu size={24} color="#FFF" />}
           </button>
         </div>
         <Link to="/">
@@ -73,6 +77,18 @@ function HeaderPage() {
           </Link>}
         </div>
       </header>
+      {navStatus && (
+        <div className="navbar-header">
+          <ul>
+            <li>
+              <Link to="/cars/insert" className="link">VENDA SEU VEÍCULO</Link>
+            </li>
+            <li>
+              <Link to="/cars/mycars" className="link">MEUS VEÍCULOS</Link>
+            </li>
+          </ul>
+        </div>
+      )}
     </section>
   );
 }
