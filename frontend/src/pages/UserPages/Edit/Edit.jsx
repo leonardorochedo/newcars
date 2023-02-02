@@ -1,3 +1,5 @@
+import api from '../../../utils/api';
+
 // CONTEXT
 import { useState, useEffect, useContext, createContext } from 'react';
 const UserContext = createContext()
@@ -5,7 +7,6 @@ import { useAuth } from "../../../hooks/useAuth"
 
 // RRD
 import { Link, useParams } from "react-router-dom";
-import api from '../../../utils/api';
 
 // COMPONENT
 import { RoundImage } from '../../../components/RoundImage/RoundImage';

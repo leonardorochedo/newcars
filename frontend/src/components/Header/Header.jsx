@@ -81,10 +81,10 @@ function HeaderPage() {
         <div className="navbar-header">
           <ul>
             <li>
-              <Link to="/cars/insert" className="link">VENDA SEU VEÍCULO</Link>
+              <Link to="/cars/insert" onClick={() => setNavStatus(!navStatus)} className="link">VENDA SEU VEÍCULO</Link>
             </li>
             <li>
-              <Link to="/cars/mycars" className="link">MEUS VEÍCULOS</Link>
+              <Link to="/cars/mycars" onClick={() => setNavStatus(!navStatus)} className="link">MEUS VEÍCULOS</Link>
             </li>
           </ul>
         </div>

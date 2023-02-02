@@ -1,10 +1,27 @@
 import "./Input.css";
 
-export function Input( props ) {
+export function Input({ 
+    type,
+    text,
+    name,
+    placeholder,
+    handleChangeInput,
+    id,
+    value,
+    multiple 
+}) {
+
     return (
         <div className="form-input">
-            <label htmlFor={props.name}>{props.text}:</label>
-            <input type={props.type} name={props.name} onChange={props.handleChangeInput} id={props.id} placeholder={props.placeholder} value={props.value} />
+            <label htmlFor={name}>{text}:</label>
+            <input 
+            type={type} 
+            name={name} 
+            onChange={handleChangeInput} 
+            id={id} 
+            placeholder={placeholder} 
+            value={value}
+            {...(multiple ? {multiple} : '')} />
         </div>
     );
 }
