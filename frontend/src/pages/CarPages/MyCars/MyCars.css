@@ -1,0 +1,43 @@
+.cars-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.car-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  width: 85vw;
+  box-shadow: 0px 0px 6px black;
+  border-radius: 15px;
+
+  margin-bottom: 2rem;
+}
+
+.car-list .img {
+  margin-top: 1rem;
+}
+
+.car-list .car-list-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  height: 5rem;
+  margin-right: 5rem;
+
+  align-items: flex-start;
+}
+
+.car-list .car-list-info p {
+  color: green;
+}
+
+.car-list .car-list-options {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  height: 5rem;
+}

@@ -12,6 +12,11 @@ img.round-image.rem12 {
   height: 12rem;
 }
 
+img.round-image.rem5 {
+  width: 5rem;
+  height: 5rem;
+}
+
 img.round-image.rem3 {
   width: 3rem;
   height: 3rem;

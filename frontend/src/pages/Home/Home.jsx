@@ -24,8 +24,8 @@ export function Home() {
         <h1 className="title">Veja os veículos disponíveis!</h1>
         <div className="cars-container">
           {cars.length > 0 &&
-            cars.map((car) => (
-              <Link to={`/cars/${car._id}`} className="car-link" key={car._id}>
+            cars.map((car, index) => (
+              <Link to={`/cars/${car._id}`} className="car-link" key={index}>
               <div className="car-card" key={car._id}>
                 <div
                   className="car-image"
