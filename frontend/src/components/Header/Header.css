@@ -76,4 +76,9 @@ span.link p {
 .navbar-header ul li .link {
   color: #fff;
   font-size: 0.85rem;
+  display: flex;
+}
+
+.navbar-header ul li .link span {
+  margin-left: .25rem;
 }

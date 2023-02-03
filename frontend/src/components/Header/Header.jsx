@@ -11,8 +11,9 @@ import logo from "../../assets/images/header/logo.png";
 import userNoImage from "../../assets/images/nopic.png";
 import { RoundImage } from "../RoundImage/RoundImage";
 import { IoMdMenu } from "react-icons/io";
-import { MdClose } from "react-icons/md";
+import { MdClose, MdAttachMoney } from "react-icons/md";
 import { FiLogIn } from "react-icons/fi";
+import { AiOutlineCar } from "react-icons/ai";
 
 // RRD
 import { Link } from "react-router-dom";
@@ -81,10 +82,10 @@ function HeaderPage() {
         <div className="navbar-header">
           <ul>
             <li>
-              <Link to="/cars/insert" onClick={() => setNavStatus(!navStatus)} className="link">VENDA SEU VEÍCULO</Link>
+              <Link to="/cars/insert" onClick={() => setNavStatus(!navStatus)} className="link"><MdAttachMoney size={22} /><span>VENDA SEU VEÍCULO</span></Link>
             </li>
             <li>
-              <Link to="/cars/mycars" onClick={() => setNavStatus(!navStatus)} className="link">MEUS VEÍCULOS</Link>
+              <Link to="/cars/mycars" onClick={() => setNavStatus(!navStatus)} className="link"><AiOutlineCar size={22} /><span>MEUS VEÍCULOS</span></Link>
             </li>
           </ul>
         </div>
