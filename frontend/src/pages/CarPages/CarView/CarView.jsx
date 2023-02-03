@@ -13,9 +13,10 @@ import { FiSmartphone } from "react-icons/fi";
 
 // SWIPER
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, A11y } from 'swiper';
+import { Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
+// import 'swiper/css/a11y';
 
 export function CarView() {
 
@@ -34,12 +35,12 @@ export function CarView() {
                 <section className="container">
                     <div className="swiper">
                         <Swiper
-                        modules={[Pagination, A11y]}
+                        modules={[Pagination]}
                         slidesPerView={1}
                         pagination={{ clickable: true, dynamicBullets: true }}
                         >
                             {car.images[0] &&
-                            <SwiperSlide className="swiperslide">
+                            <SwiperSlide>
                             <div
                                 className="car-swiper"
                                 style={{
@@ -49,7 +50,7 @@ export function CarView() {
                             </SwiperSlide>
                             }
                             {car.images[1] &&
-                            <SwiperSlide className="swiperslide">
+                            <SwiperSlide>
                             <div
                                 className="car-swiper"
                                 style={{
@@ -74,14 +75,32 @@ export function CarView() {
                         <h1>{car.model}</h1>
                         <h1 className="price">R${car.price}</h1>
                     </div>
-                    <h3 className="desc">Descrição do Veículo:</h3>
+                    <h3 className="desc">Ficha técnica:</h3>
                     <div className="description">
-                        <p>Modelo: {car.model}</p>
-                        <p>Fabricante: {car.manufacturer}</p>
-                        <p>Ano: {car.year}</p>
-                        <p>Categoria: {car.category}</p>
-                        <p>Modelo: {car.model}</p>
-                        <p>{car.description}</p>
+                        <div className="card-desc">
+                            <h3>Modelo:</h3>
+                            <p>{car.model}</p>
+                        </div>
+                        <div className="card-desc">
+                            <h3>Fabricante:</h3>
+                            <p>{car.manufacturer}</p>
+                        </div>
+                        <div className="card-desc">
+                            <h3>Ano:</h3>
+                            <p>{car.year}</p>
+                        </div>
+                        <div className="card-desc">
+                            <h3>Categoria:</h3>
+                            <p>{car.category}</p>
+                        </div>
+                        <div className="card-desc">
+                            <h3>Modelo:</h3>
+                            <p>{car.model}</p>
+                        </div>
+                        <div className="description-text">
+                            <h2>Descrição: </h2>
+                            <p>{car.description}</p>
+                        </div>
                     </div>
                     <div className="contact-owner">
                         <div className="user-info">
