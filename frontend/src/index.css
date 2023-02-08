@@ -136,6 +136,8 @@ input[type="submit"]:hover {
 }
 
 button.delete-button {
+  cursor: pointer;
+
   border-radius: 5px;
   background-color: transparent;
   color: #eb0c0c;
@@ -153,4 +155,19 @@ button.delete-button {
 button.delete-button:hover {
   background-color: #eb0c0c;
   color: #fff;
+}
+
+@media (min-width: 1000px) {
+  input[type="submit"] {
+    cursor: pointer;
+    width: 7rem;
+  }
+
+  .form-container {
+    width: 30vw;
+  }
+
+  select:hover {
+    cursor: pointer;
+  }
 }

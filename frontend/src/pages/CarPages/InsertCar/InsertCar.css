@@ -14,3 +14,9 @@
   border: 2px solid var(--primary-color);
   border-radius: 5px;
 }
+
+@media (min-width: 1000px) {
+  .preview-car-images {
+    width: 30vw;
+  }
+}

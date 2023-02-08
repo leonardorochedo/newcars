@@ -84,3 +84,26 @@
 
   opacity: 0.75;
 }
+
+@media (min-width: 1000px) {
+  .car-item {
+    width: 50vw;
+  }
+
+  .car-list .car-list-info {
+    margin-right: 20rem;
+  }
+
+  .car-options .car-options-sell button {
+    cursor: pointer;
+    transition: .3s;
+  }
+
+  .car-options .car-options-sell button:hover {
+    opacity: .75;
+  }
+
+  .car-options .car-options-sell button:disabled {
+    cursor: auto;
+  }
+}

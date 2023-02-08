@@ -21,3 +21,10 @@ img.round-image.rem3 {
   width: 3rem;
   height: 3rem;
 }
+
+@media (min-width: 1000px) {
+  img.round-image.rem3 {
+    width: 4rem;
+    height: 4rem;
+  }
+}

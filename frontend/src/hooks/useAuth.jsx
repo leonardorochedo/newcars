@@ -40,7 +40,7 @@ export function useAuth() {
             await authUser(data)
 
             toast.success(msgText, {
-                position: "top-left",
+                position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -52,7 +52,7 @@ export function useAuth() {
         } catch (err) {
             msgText = err.response.data.message // pegando o error message mandado da API
             toast.error(msgText, {
-                position: "top-left",
+                position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -75,7 +75,7 @@ export function useAuth() {
             await authUser(data)
             
             toast.success(msgText, {
-                position: "top-left",
+                position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -87,7 +87,7 @@ export function useAuth() {
         } catch (err) {
             msgText = err.response.data.message
             toast.error(msgText, {
-                position: "top-left",
+                position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -115,7 +115,7 @@ export function useAuth() {
             window.location.reload(true) // dar um refresh quando redirecionar
             
             toast.success(msgText, {
-                position: "top-left",
+                position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -127,7 +127,7 @@ export function useAuth() {
         } catch (err) {
             msgText = err.response.data.message
             toast.error(msgText, {
-                position: "top-left",
+                position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -155,7 +155,7 @@ export function useAuth() {
             window.location.reload(true)
 
             toast.success(msgText, {
-                position: "top-left",
+                position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -167,7 +167,7 @@ export function useAuth() {
         } catch (err) {
             msgText = err.response.data.message
             toast.error(msgText, {
-                position: "top-left",
+                position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -191,7 +191,7 @@ export function useAuth() {
         window.location.reload(true) // dar um refresh quando redirecionar
 
         toast.success(msgText, {
-            position: "top-left",
+            position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,

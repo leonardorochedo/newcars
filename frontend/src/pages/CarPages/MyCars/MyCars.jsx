@@ -46,7 +46,7 @@ function MyCarsPage() {
         window.location.reload(true)
 
         toast.success("Carro anunciado novamente!", {
-            position: "top-left",
+            position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -65,7 +65,7 @@ function MyCarsPage() {
         window.location.reload(true)
 
         toast.success("Carro vendido com sucesso!", {
-            position: "top-left",
+            position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,

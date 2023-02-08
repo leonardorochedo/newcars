@@ -11,7 +11,7 @@ export function Footer() {
                 <img src={logo} alt="Logo" />
             </Link>
             <div className="social-medias">
-                <p>Onde seu carro tem o valor que mereçe!</p>
+                <p>Onde seu carro tem o valor que merece!</p>
                 <cite>@2023 NewCars</cite>
             </div>
         </footer>

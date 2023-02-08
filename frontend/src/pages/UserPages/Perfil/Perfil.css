@@ -37,3 +37,14 @@
   margin-top: 2rem;
   background-color: #eb0c0c;
 }
+
+@media (min-width: 1000px) {
+  .user-link {
+    cursor: pointer;
+    width: 30vw;
+  }
+
+  .user-link:hover {
+    opacity: .75;
+  }
+}

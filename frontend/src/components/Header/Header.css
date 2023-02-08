@@ -82,3 +82,51 @@ span.link p {
 .navbar-header ul li .link span {
   margin-left: .25rem;
 }
+
+@media (min-width: 1000px) {
+  header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  
+    box-shadow: 0px 0px 6px 0px black;
+  }
+  
+  header img {
+    width: 6rem;
+  }
+  
+  header button {
+    cursor: pointer;
+    transition: .3s;
+  }
+
+  header button:hover {
+    opacity: .75;
+  }
+  
+  header .button-header {
+    width: 5rem;
+  }
+  
+  .navbar-header {
+    height: 2.5rem;
+  }
+  
+  .navbar-header ul {
+    width: 80%;
+  }
+  
+  .navbar-header ul li .link {
+    cursor: pointer;
+    transition: .3s;
+  }
+
+  .navbar-header ul li .link:hover {
+    opacity: .75;
+  }
+  
+  .navbar-header ul li .link span {
+    margin-left: .5rem;
+  }
+}

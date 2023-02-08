@@ -41,7 +41,7 @@ function DeleteCarPage() {
         navigate('/')
             
         toast.success(msgText, {
-            position: "top-left",
+            position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,

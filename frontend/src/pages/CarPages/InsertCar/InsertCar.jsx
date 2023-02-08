@@ -89,7 +89,7 @@ function InsertCarPage() {
             navigate('/')
 
             toast.success(msgText, {
-                position: "top-left",
+                position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -101,7 +101,7 @@ function InsertCarPage() {
         } catch (err) {
             msgText = err.response.data.message
             toast.error(msgText, {
-                position: "top-left",
+                position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
