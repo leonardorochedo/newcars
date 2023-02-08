@@ -34,7 +34,7 @@ function EditCarPage() {
     const { id } = useParams()
     const navigate = useNavigate()
     const [car, setCar] = useState({})
-    const [preview, setPreview] = useState([])
+    const [preview, setPreview] = useState()
 
     const options = [
         "Carro",
@@ -53,6 +53,8 @@ function EditCarPage() {
     function onFileChange(e) {
         setPreview(Array.from(e.target.files))
         setCar({...car, images: [...e.target.files]})
+        // console.log(car.images)
+        // console.log(Array.from(e.target.files))
     }
 
     function handleChangeInput(e) {
@@ -95,7 +97,7 @@ function EditCarPage() {
             navigate('/')
 
             toast.success(msgText, {
-                position: "top-center",
+                position: "top-left",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -107,7 +109,7 @@ function EditCarPage() {
         } catch (err) {
             msgText = err.response.data.message
             toast.error(msgText, {
-                position: "top-center",
+                position: "top-left",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -126,7 +128,22 @@ function EditCarPage() {
                 <>
                     <h1 className="title">Editando seu veículo!</h1>
                     <div className='preview-car-images'>
-                        {/* image here */}
+                        {(preview > 0) && (
+                            preview.map((image, index) => (
+                                <img 
+                                    src={URL.createObjectURL(image)}
+                                    alt={car.name} key={`${car.name}+${index}`}
+                                />
+                            ))
+                        )}
+                        {(!preview && car.images > 0) && (
+                            car.images.map((image, index) => (
+                                <img 
+                                    src={`http://localhost:5000/images/cars/${image}`}
+                                    alt={car.name} key={`${car.name}+${index}`}
+                                />
+                            ))
+                        )}
                     </div>
                     <form onSubmit={handleSubmit} className="form-container">
                         <Input type="file" name="images" multiple={true} handleChangeInput={onFileChange} text="Imagens" />

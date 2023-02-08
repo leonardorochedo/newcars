@@ -46,7 +46,7 @@ function MyCarsPage() {
         window.location.reload(true)
 
         toast.success("Carro anunciado novamente!", {
-            position: "top-center",
+            position: "top-left",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -65,7 +65,7 @@ function MyCarsPage() {
         window.location.reload(true)
 
         toast.success("Carro vendido com sucesso!", {
-            position: "top-center",
+            position: "top-left",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -78,7 +78,9 @@ function MyCarsPage() {
 
     return (
         <section className="container">
-            <h1 className="title">Meus veículos!</h1>
+            {context.authenticated && (
+                <h1 className="title">Meus veículos!</h1>
+            )}
             {context.authenticated
             ? (
                 <div className='cars-list'>
@@ -121,7 +123,7 @@ function MyCarsPage() {
                         </>
                     ))
                 ) : (
-                    <p className="warning">Não há carros cadastrados ou disponíveis no momento 😞!</p>
+                    <p className="warning">Não há carros cadastrados!</p>
                 )}
                 </div>
             ) : (

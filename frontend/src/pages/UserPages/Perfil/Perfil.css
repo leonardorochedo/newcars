@@ -3,29 +3,12 @@
   flex-direction: column;
 }
 
-/* .user-perfil .user-image {
-  width: 12rem;
-  height: 12rem;
-  background-size: contain;
-
-  border-radius: 100%;
-  border: 2px dashed var(--primary-color);
-}
-
-.user-perfil img.perfil {
-  width: 12rem;
-  height: 12rem;
-
-  border-radius: 100%;
-  border: 2px dashed var(--primary-color);
-} */
-
 .user-links {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  height: 20vh;
+  height: 22vh;
 
   margin-top: 2rem;
 }

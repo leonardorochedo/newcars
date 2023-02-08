@@ -89,7 +89,7 @@ function InsertCarPage() {
             navigate('/')
 
             toast.success(msgText, {
-                position: "top-center",
+                position: "top-left",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -101,7 +101,7 @@ function InsertCarPage() {
         } catch (err) {
             msgText = err.response.data.message
             toast.error(msgText, {
-                position: "top-center",
+                position: "top-left",
                 autoClose: 5000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -143,7 +143,7 @@ function InsertCarPage() {
                             <select className='form-entry' name="category" id="category" onChange={handleChangeSelect}>
                                 {options.map((option) => (
                                     <>
-                                        {car.category == option ? (
+                                        {option == "Outros" ? (
                                             <option value={option} selected>{option}</option>
                                         ) : (
                                             <option value={option}>{option}</option>
