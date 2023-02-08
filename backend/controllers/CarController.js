@@ -296,7 +296,7 @@ module.exports = class CarController {
         }
 
         try {
-            await Car.deleteOne({id: id})
+            await Car.deleteOne({_id: id})
             res.status(202).json({message: 'Carro deletado com sucesso!'})
         } catch(err) {
             res.status(500).json({message: err})

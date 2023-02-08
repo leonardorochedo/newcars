@@ -57,7 +57,7 @@ function DeleteCarPage() {
             {context.authenticated ? (
                 <>
                     <h1 className="title">Tem certeza que deseja deletar este veículo?</h1>
-                    <button className="delete-button" onClick={buttonSubmit}>Sim! Deletar</button>
+                    <button className="delete-button" onClick={buttonSubmit} >Sim! Deletar</button>
                 </>
             ) : (
                 <>
