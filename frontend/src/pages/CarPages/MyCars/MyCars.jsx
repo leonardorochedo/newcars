@@ -47,7 +47,7 @@ function MyCarsPage() {
                     cars.map((car, index) => (
                         <div className="car-list" key={index}>
                             <RoundImage 
-                                src={`http://localhost:5000//images/cars/${car.images[0]}`}
+                                src={`http://localhost:5000/images/cars/${car.images[0]}`}
                                 alt={car.model}
                                 size="rem5 img"
                             />

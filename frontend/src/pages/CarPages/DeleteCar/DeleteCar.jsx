@@ -26,44 +26,30 @@ export function DeleteCar() {
 function DeleteCarPage() {
 
     const context = useContext(UserContext)
-
+    const navigate = useNavigate()
     const { id } = useParams()
 
-    async function buttonSubmit(e) {
-        e.preventDefault()
+    async function buttonSubmit() {
+        // e.preventDefault()
 
         let msgText = "Veículo deletado com sucesso!"
 
-        try {
-            const data = await api.delete(`/cars/${id}`).then((response) => {
-                return response.data
-            })
+        await api.delete(`/cars/delete/${id}`).then((response) => {
+            return response.data
+        })
 
-            navigate('/')
+        navigate('/')
             
-            toast.success(msgText, {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            })
-        } catch (err) {
-            msgText = err.response.data.message
-            toast.error(msgText, {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            })
-        }
+        toast.success(msgText, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+        })
     }
 
     return (

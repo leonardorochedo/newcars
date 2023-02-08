@@ -36,6 +36,14 @@ function InsertCarPage() {
     const [car, setCar] = useState({})
     const [preview, setPreview] = useState([])
 
+    const options = [
+        "Carro",
+        "Motocicleta",
+        "Caminhonete",
+        "Caminhão",
+        "Outros"
+    ]
+
     function onFileChange(e) {
         setPreview(Array.from(e.target.files))
         setCar({...car, images: [...e.target.files]})
@@ -133,12 +141,15 @@ function InsertCarPage() {
                         <div className="form-input">
                             <label htmlFor="category">Selecione a categoria:</label>
                             <select className='form-entry' name="category" id="category" onChange={handleChangeSelect}>
-                                <option value="Desconhecido">Selecionar</option>
-                                <option value="Carro">Carro</option>
-                                <option value="Motocicleta">Motocicleta</option>
-                                <option value="Caminhonete">Caminhonete</option>
-                                <option value="Caminhão">Caminhão</option>
-                                <option value="Outros">Outros</option>
+                                {options.map((option) => (
+                                    <>
+                                        {car.category == option ? (
+                                            <option value={option} selected>{option}</option>
+                                        ) : (
+                                            <option value={option}>{option}</option>
+                                        )}
+                                    </>
+                                ))}
                             </select>
                         </div>
                         <div className="form-buttons">

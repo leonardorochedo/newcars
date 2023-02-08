@@ -30,7 +30,7 @@ export function Home() {
                 <div
                   className="car-image"
                   style={{
-                    backgroundImage: `url(http://localhost:5000//images/cars/${car.images[0]})`,
+                    backgroundImage: `url(http://localhost:5000/images/cars/${car.images[0]})`,
                   }}
                 ></div>
                 <div className="car-infos">
@@ -41,7 +41,7 @@ export function Home() {
                   </div>
                   <div className="user-info">
                     {car.user.image ? (
-                      <RoundImage src={`http://localhost:5000//images/users/${car.user.image}`} alt={car.user.name} size="rem3" />
+                      <RoundImage src={`http://localhost:5000/images/users/${car.user.image}`} alt={car.user.name} size="rem3" />
                     ) : (
                       <RoundImage src={userNoImage} alt={car.user.name} size="rem3" />
                     )}

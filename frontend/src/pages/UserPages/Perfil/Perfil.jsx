@@ -48,7 +48,7 @@ function PerfilPage() {
                 <div className="user-perfil">
                     <h1 className="title">Gerenciamento de perfil</h1>
                     {user.image ? (
-                        <RoundImage src={`http://localhost:5000//images/users/${user.image}`} alt={user.name} size="rem12" />
+                        <RoundImage src={`http://localhost:5000/images/users/${user.image}`} alt={user.name} size="rem12" />
                     ) : (
                         <RoundImage src={userNoImage} alt={user.name} size="rem12" />
                     )}

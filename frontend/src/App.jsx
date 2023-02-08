@@ -13,6 +13,7 @@ import { Delete } from "./pages/UserPages/Delete/Delete";
 import { CarView } from "./pages/CarPages/CarView/CarView";
 import { InsertCar } from "./pages/CarPages/InsertCar/InsertCar";
 import { DeleteCar } from "./pages/CarPages/DeleteCar/DeleteCar";
+import { EditCar } from "./pages/CarPages/EditCar/EditCar";
 import { MyCars } from "./pages/CarPages/MyCars/MyCars";
 
 // COMPONENTS
@@ -59,6 +60,7 @@ function App() {
         <Route path="/cars/:id" element={<CarView />} />
         <Route path="/cars/insert" element={<InsertCar />} />
         <Route path="/cars/delete/:id" element={<DeleteCar />} />
+        <Route path="/cars/edit/:id" element={<EditCar />} />
         <Route path="/cars/mycars" element={<MyCars />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>

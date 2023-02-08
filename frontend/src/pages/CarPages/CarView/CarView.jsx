@@ -44,7 +44,7 @@ export function CarView() {
                             <div
                                 className="car-swiper"
                                 style={{
-                                    backgroundImage: `url(http://localhost:5000//images/cars/${car.images[0]})`,
+                                    backgroundImage: `url(http://localhost:5000/images/cars/${car.images[0]})`,
                                 }}
                             ></div>
                             </SwiperSlide>
@@ -54,7 +54,7 @@ export function CarView() {
                             <div
                                 className="car-swiper"
                                 style={{
-                                    backgroundImage: `url(http://localhost:5000//images/cars/${car.images[1]})`,
+                                    backgroundImage: `url(http://localhost:5000/images/cars/${car.images[1]})`,
                                 }}
                             ></div>
                             </SwiperSlide>
@@ -64,7 +64,7 @@ export function CarView() {
                             <div
                                 className="car-swiper"
                                 style={{
-                                    backgroundImage: `url(http://localhost:5000//images/cars/${car.images[2]})`,
+                                    backgroundImage: `url(http://localhost:5000/images/cars/${car.images[2]})`,
                                 }}
                             ></div>
                             </SwiperSlide>
@@ -105,7 +105,7 @@ export function CarView() {
                     <div className="contact-owner">
                         <div className="user-info">
                             {car.user.image ? (
-                                <RoundImage src={`http://localhost:5000//images/users/${car.user.image}`} alt={car.user.name} size="rem3" />
+                                <RoundImage src={`http://localhost:5000/images/users/${car.user.image}`} alt={car.user.name} size="rem3" />
                             ) : (
                                 <RoundImage src={userNoImage} alt={car.user.name} size="rem3" />
                             )}

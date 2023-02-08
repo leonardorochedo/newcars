@@ -61,7 +61,7 @@ function EditPage() {
                         <RoundImage src={
                             preview
                             ? URL.createObjectURL(preview)
-                            : `http://localhost:5000//images/users/${user.image}`}
+                            : `http://localhost:5000/images/users/${user.image}`}
                             alt={user.name}
                             size="rem12" />
                     )}
