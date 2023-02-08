@@ -49,13 +49,15 @@ function HeaderPage() {
     <section className="header">
       <header>
         <div className="button-header">
-          <button onClick={() => setNavStatus(!navStatus)}>
-            {navStatus
-            ? <MdClose size={24} color="#FFF" />
-            : <IoMdMenu size={24} color="#FFF" />}
-          </button>
+          {screen.width < 1000 && (
+            <button onClick={() => setNavStatus(!navStatus)}>
+              {navStatus
+              ? <MdClose size={24} color="#FFF" />
+              : <IoMdMenu size={24} color="#FFF" />}
+            </button>
+          )}
         </div>
-        <Link to="/">
+        <Link to="/" className="logo-header">
           <img src={logo} alt="Logomarca" />
         </Link>
         <div className="button-header">
@@ -77,6 +79,12 @@ function HeaderPage() {
             </span>
           </Link>}
         </div>
+        {screen.width > 1000 && (
+            <div className="navbar-header-desk">
+              <Link to="/cars/insert" className="link"><MdAttachMoney size={20} /><span>VENDA SEU VEÍCULO</span></Link>
+              <Link to="/cars/mycars" className="link"><AiOutlineCar size={20} /><span>MEUS VEÍCULOS</span></Link>
+            </div>
+          )}
       </header>
       {navStatus && (
         <div className="navbar-header">

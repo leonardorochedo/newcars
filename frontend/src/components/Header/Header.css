@@ -83,6 +83,32 @@ span.link p {
   margin-left: .25rem;
 }
 
+.navbar-header-desk {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 5rem;
+
+  margin: 0 2rem;
+}
+
+.navbar-header-desk .link {
+  display: flex;
+
+  color: #fff;
+  font-size: 14px;
+  margin-right: auto;
+  transition: .3s;
+}
+
+.navbar-header-desk .link:hover {
+  opacity: .75;
+}
+
+.navbar-header-desk span {
+  margin-left: .25rem;
+}
+
 @media (min-width: 1000px) {
   header {
     display: flex;
@@ -92,6 +118,10 @@ span.link p {
     box-shadow: 0px 0px 6px 0px black;
   }
   
+  .logo-header {
+    margin-right: auto;
+  }
+
   header img {
     width: 6rem;
   }
@@ -107,26 +137,5 @@ span.link p {
   
   header .button-header {
     width: 5rem;
-  }
-  
-  .navbar-header {
-    height: 2.5rem;
-  }
-  
-  .navbar-header ul {
-    width: 80%;
-  }
-  
-  .navbar-header ul li .link {
-    cursor: pointer;
-    transition: .3s;
-  }
-
-  .navbar-header ul li .link:hover {
-    opacity: .75;
-  }
-  
-  .navbar-header ul li .link span {
-    margin-left: .5rem;
   }
 }
