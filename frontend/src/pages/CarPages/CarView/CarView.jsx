@@ -1,4 +1,5 @@
 import api from "../../../utils/api";
+import { BASE_URL } from "../../../utils/BASE_URL";
 
 import { useState, useEffect } from "react";
 
@@ -10,13 +11,6 @@ import "./CarView.css";
 import userNoImage from "../../../assets/images/nopic.png";
 import { RoundImage } from "../../../components/RoundImage/RoundImage";
 import { FiSmartphone } from "react-icons/fi";
-
-// SWIPER
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper';
-import 'swiper/css';
-import 'swiper/css/pagination';
-// import 'swiper/css/a11y';
 
 export function CarView() {
 
@@ -33,43 +27,15 @@ export function CarView() {
         <>
             {car.model && (
                 <section className="container">
-                    <div className="swiper">
-                        <Swiper
-                        modules={[Pagination]}
-                        slidesPerView={1}
-                        pagination={{ clickable: true, dynamicBullets: true }}
-                        >
-                            {car.images[0] &&
-                            <SwiperSlide>
-                            <div
-                                className="car-swiper"
-                                style={{
-                                    backgroundImage: `url(http://localhost:5000/images/cars/${car.images[0]})`,
-                                }}
-                            ></div>
-                            </SwiperSlide>
-                            }
-                            {car.images[1] &&
-                            <SwiperSlide>
-                            <div
-                                className="car-swiper"
-                                style={{
-                                    backgroundImage: `url(http://localhost:5000/images/cars/${car.images[1]})`,
-                                }}
-                            ></div>
-                            </SwiperSlide>
-                            }
-                            {car.images[2] &&
-                            <SwiperSlide>
-                            <div
-                                className="car-swiper"
-                                style={{
-                                    backgroundImage: `url(http://localhost:5000/images/cars/${car.images[2]})`,
-                                }}
-                            ></div>
-                            </SwiperSlide>
-                            }
-                        </Swiper>
+                    <div className="car-view-images">
+                        {car.images.map((image, index) => (
+                            <img
+                                className="car-image"
+                                src={`${BASE_URL}/images/cars/${image}`}
+                                alt={car.model}
+                                key={index}
+                            ></img>
+                        ))}
                     </div>
                     <div className="title-car">
                         <h1>{car.model}</h1>

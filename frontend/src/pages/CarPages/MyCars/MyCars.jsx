@@ -1,4 +1,5 @@
 import api from '../../../utils/api';
+import { BASE_URL } from '../../../utils/BASE_URL';
 
 // CONTEXT
 import { useState, useEffect, useContext, createContext } from 'react';
@@ -90,7 +91,7 @@ function MyCarsPage() {
                             <div className="car-item">
                                 <div className="car-list" key={index}>
                                     <RoundImage 
-                                        src={`http://localhost:5000/images/cars/${car.images[0]}`}
+                                        src={`${BASE_URL}/images/cars/${car.images[0]}`}
                                         alt={car.model}
                                         size="rem5 img"
                                     />

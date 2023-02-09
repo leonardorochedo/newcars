@@ -124,7 +124,8 @@ function InsertCarPage() {
                         preview.map((image, index) => (
                             <img 
                                 src={URL.createObjectURL(image)}
-                                alt={car.name} key={`${car.name}+${index}`}
+                                alt={car.name}
+                                key={index}
                             />
                         ))}
                     </div>

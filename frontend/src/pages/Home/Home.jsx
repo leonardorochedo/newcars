@@ -1,4 +1,5 @@
 import api from "../../utils/api";
+import { BASE_URL } from "../../utils/BASE_URL";
 
 import { useState, useEffect } from "react";
 
@@ -32,7 +33,7 @@ export function Home() {
                   <div
                     className="car-image"
                     style={{
-                      backgroundImage: `url(http://localhost:5000/images/cars/${car.images[0]})`,
+                      backgroundImage: `url(${BASE_URL}/images/cars/${car.images[0]})`,
                     }}
                   ></div>
                   <div className="car-infos">

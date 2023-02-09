@@ -1,4 +1,5 @@
 import api from '../../../utils/api';
+import { BASE_URL } from '../../../utils/BASE_URL';
 
 // CONTEXT
 import { useState, useEffect, useContext, createContext } from 'react';
@@ -53,8 +54,6 @@ function EditCarPage() {
     function onFileChange(e) {
         setPreview(Array.from(e.target.files))
         setCar({...car, images: [...e.target.files]})
-        // console.log(car.images)
-        // console.log(Array.from(e.target.files))
     }
 
     function handleChangeInput(e) {
@@ -127,23 +126,25 @@ function EditCarPage() {
             ? (
                 <>
                     <h1 className="title">Editando seu veículo!</h1>
-                    <div className='preview-car-images'>
-                        {(preview > 0) && (
+                    <div className='preview-car-images-edit'>
+                        {/* {(preview > 0) && (
                             preview.map((image, index) => (
                                 <img 
                                     src={URL.createObjectURL(image)}
-                                    alt={car.name} key={`${car.name}+${index}`}
+                                    alt={car.model}
+                                    key={index}
                                 />
                             ))
-                        )}
-                        {(!preview && car.images > 0) && (
+                        )} */}
+                        {/* {car.images > 0 && (
                             car.images.map((image, index) => (
                                 <img 
-                                    src={`http://localhost:5000/images/cars/${image}`}
-                                    alt={car.name} key={`${car.name}+${index}`}
+                                    src={`${BASE_URL}/images/cars/${image}`}
+                                    alt={car.model}
+                                    key={index}
                                 />
                             ))
-                        )}
+                        )} */}
                     </div>
                     <form onSubmit={handleSubmit} className="form-container">
                         <Input type="file" name="images" multiple={true} handleChangeInput={onFileChange} text="Imagens" />

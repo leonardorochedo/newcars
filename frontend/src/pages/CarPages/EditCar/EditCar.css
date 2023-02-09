@@ -1,4 +1,6 @@
-.preview-car-images img {
+.preview-car-images-edit img {
   width: 10rem;
   height: 10rem;
+
+  border: 2px solid var(--primary-color);
 }

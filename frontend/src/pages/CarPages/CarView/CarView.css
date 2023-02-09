@@ -1,22 +1,20 @@
-.swiper {
-  background-color: #26262e;
+.car-view-images {
+  display: flex;
+  flex-wrap: wrap;
 
   width: 70vw;
-  height: 15rem;
-
-  border-radius: 20px;
-  border: 1px solid var(--primary-color);
 
   margin-bottom: 1rem;
 }
 
-.swiper .car-swiper {
-  height: 100%;
+.car-view-images .car-image {
+  width: 10rem;
+  height: auto;
 
-  background: center;
-  background-repeat: no-repeat;
-  background-color: #414141;
-  background-size: cover;
+  border-radius: 10px;
+  border: 2px solid var(--primary-color);
+
+  margin: 1rem 1rem;
 }
 
 .title-car {
@@ -69,11 +67,20 @@ h3.desc {
 }
 
 @media (min-width: 1000px) {
-  .swiper {
+  .car-view-images {
+    width: 50vw;
+  }
+
+  .car-view-images .car-image {
+    width: 15rem;
+    height: auto;
+  }
+
+  .description .card-desc {
     width: 30vw;
   }
 
   .description .card-desc:hover {
-    opacity: .75;
+    opacity: 0.75;
   }
 }

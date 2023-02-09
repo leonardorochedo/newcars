@@ -1,4 +1,5 @@
 import api from '../../../utils/api';
+import { BASE_URL } from '../../../utils/BASE_URL';
 
 // CONTEXT
 import { useState, useEffect, useContext, createContext } from 'react';
@@ -61,7 +62,7 @@ function EditPage() {
                         <RoundImage src={
                             preview
                             ? URL.createObjectURL(preview)
-                            : `http://localhost:5000/images/users/${user.image}`}
+                            : `${BASE_URL}/images/users/${user.image}`}
                             alt={user.name}
                             size="rem12" />
                     )}
