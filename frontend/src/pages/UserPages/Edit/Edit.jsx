@@ -2,9 +2,8 @@ import api from '../../../utils/api';
 import { BASE_URL } from '../../../utils/BASE_URL';
 
 // CONTEXT
-import { useState, useEffect, useContext, createContext } from 'react';
-const UserContext = createContext()
-import { useAuth } from "../../../hooks/useAuth"
+import { useState, useEffect, useContext } from 'react';
+import { Context } from "../../../context/UserContext";
 
 // RRD
 import { Link, useParams } from "react-router-dom";
@@ -15,18 +14,7 @@ import { Input } from "../../../components/Input/Input";
 
 export function Edit() {
 
-    const { authenticated, register, login, deleteUser, editUser, logout } = useAuth() // pegando os dados de useAuth
-
-    return (
-        <UserContext.Provider value={{authenticated, register, login, deleteUser, editUser, logout}}>
-            <EditPage />
-        </UserContext.Provider>
-    )
-}
-
-function EditPage() {
-
-    const context = useContext(UserContext) // importanto o contexto
+    const { authenticated, editUser } = useContext(Context) // importanto o contexto
     const [user, setUser] = useState({})
     const [preview, setPreview] = useState()
     const { id } = useParams()
@@ -49,12 +37,12 @@ function EditPage() {
     function handleSubmit(e) {
         e.preventDefault()
 
-        context.editUser(user, id)
+        editUser(user, id)
     }
 
     return (
         <section className="container container-form">
-            {context.authenticated
+            {authenticated
             ? (
                 <>
                     <h1 className="title">Atualizando Perfil</h1>

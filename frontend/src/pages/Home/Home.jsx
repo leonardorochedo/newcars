@@ -44,7 +44,7 @@ export function Home() {
                     </div>
                     <div className="user-info">
                       {car.user.image ? (
-                        <RoundImage src={`http://localhost:5000/images/users/${car.user.image}`} alt={car.user.name} size="rem3" />
+                        <RoundImage src={`${BASE_URL}/images/users/${car.user.image}`} alt={car.user.name} size="rem3" />
                       ) : (
                         <RoundImage src={userNoImage} alt={car.user.name} size="rem3" />
                       )}

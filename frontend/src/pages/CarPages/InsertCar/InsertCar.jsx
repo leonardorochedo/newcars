@@ -1,10 +1,8 @@
 import api from '../../../utils/api';
 
 // CONTEXT
-import { useState, useEffect, useContext, createContext } from 'react';
-const UserContext = createContext()
-import { useAuth } from "../../../hooks/useAuth";
-
+import { useState, useContext } from 'react';
+import { Context } from "../../../context/UserContext";
 // RRD
 import { Link } from "react-router-dom";
 
@@ -20,18 +18,7 @@ import { toast } from "react-toastify";
 
 export function InsertCar() {
 
-    const { authenticated, register, login, deleteUser, editUser, logout } = useAuth() // pegando os dados de useAuth
-
-    return (
-        <UserContext.Provider value={{authenticated, register, login, deleteUser, editUser, logout}}>
-            <InsertCarPage />
-        </UserContext.Provider>
-    )
-}
-
-function InsertCarPage() {
-
-    const context = useContext(UserContext) // importanto o contexto
+    const {authenticated } = useContext(Context) // importanto o contexto
     const navigate = useNavigate()
     const [car, setCar] = useState({})
     const [preview, setPreview] = useState([])
@@ -115,7 +102,7 @@ function InsertCarPage() {
 
     return (
         <section className="container">
-            {context.authenticated
+            {authenticated
             ? (
                 <>
                     <h1 className="title">Vamos anunciar seu veículo!</h1>

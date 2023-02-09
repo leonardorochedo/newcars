@@ -2,9 +2,8 @@ import api from "../../../utils/api";
 import { BASE_URL } from "../../../utils/BASE_URL";
 
 // CONTEXT
-import { useState, useEffect, useContext, createContext  } from "react";
-import { useAuth } from "../../../hooks/useAuth"
-const UserContext = createContext()
+import { useState, useEffect, useContext  } from "react";
+import { Context } from "../../../context/UserContext";
 
 // RRD
 import { Link, useParams } from "react-router-dom";
@@ -16,21 +15,9 @@ import { RoundImage } from "../../../components/RoundImage/RoundImage";
 import { FiLogOut, FiTrash2 } from "react-icons/fi";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 
-
 export function Perfil() {
 
-    const { authenticated, register, login, logout } = useAuth() // pegando os dados de useAuth
-
-    return (
-        <UserContext.Provider value={{authenticated, register, login, logout}}>
-            <PerfilPage />
-        </UserContext.Provider>
-    )
-}
-
-function PerfilPage() {
-
-    const context = useContext(UserContext)
+    const { authenticated, logout } = useContext(Context)
 
     const [user, setUser] = useState({})
 
@@ -44,7 +31,7 @@ function PerfilPage() {
 
     return (
         <section className="container">
-            {context.authenticated ? (
+            {authenticated ? (
                 <>
                 <div className="user-perfil">
                     <h1 className="title">Gerenciamento de perfil</h1>
@@ -57,7 +44,7 @@ function PerfilPage() {
                 </div>
                 <div className="user-links">
                     <Link to={`/users/edit/${user._id}`} className="user-link" ><HiOutlinePencilAlt />Editar Perfil</Link>
-                    <p onClick={context.logout} className="user-link" ><FiLogOut />Sair</p>
+                    <p onClick={logout} className="user-link" ><FiLogOut />Sair</p>
                     <Link to={`/users/delete/${user._id}`} className="user-link delete-link" ><FiTrash2 />Excluir Conta</Link>
                 </div>
                 </>

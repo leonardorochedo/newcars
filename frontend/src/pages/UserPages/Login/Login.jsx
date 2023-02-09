@@ -1,7 +1,6 @@
 // CONTEXT
-import { useState, useContext, createContext } from 'react';
-const UserContext = createContext()
-import { useAuth } from "../../../hooks/useAuth"
+import { useState, useContext } from 'react';
+import { Context } from "../../../context/UserContext";
 
 // RRD
 import { Link } from "react-router-dom";
@@ -11,19 +10,8 @@ import { Input } from "../../../components/Input/Input";
 
 export function Login() {
 
-    const { authenticated, register, login, deleteUser, logout } = useAuth() // pegando os dados de useAuth
-
-    return (
-        <UserContext.Provider value={{authenticated, register, login, deleteUser, logout}}>
-            <LoginPage />
-        </UserContext.Provider>
-    )
-}
-
-function LoginPage() {
-
     const [user, setUser] = useState({})
-    const context = useContext(UserContext) // importando o contexto
+    const { authenticated, login } = useContext(Context) // importando o contexto
 
     function handleChangeInput(e) {
         setUser({...user, [e.target.name]: e.target.value}) // definindo o preenchimento como key/value
@@ -32,12 +20,12 @@ function LoginPage() {
     function handleSubmit(e) {
         e.preventDefault()
 
-        context.login(user)
+        login(user)
     }
 
     return (
         <section className="container container-form">
-            {context.authenticated
+            {authenticated
             ? (
                 <>
                     <h1 className="title">Você já está logado!</h1>

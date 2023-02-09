@@ -30,43 +30,48 @@ import {
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
+// CONTEXT
+import { UserProvider } from "./context/UserContext";
+
 function App() {
   return (
-    <BrowserRouter>
-    <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-    <Container>
-      <div className="invisible"></div>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        {/* USER */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/users/:id" element={<Perfil />} />
-        <Route path="/users/edit/:id" element={<Edit />} />
-        <Route path="/users/delete/:id" element={<Delete />} />
-        {/* CAR */}
-        <Route path="/cars/:id" element={<CarView />} />
-        <Route path="/cars/insert" element={<InsertCar />} />
-        <Route path="/cars/delete/:id" element={<DeleteCar />} />
-        <Route path="/cars/edit/:id" element={<EditCar />} />
-        <Route path="/cars/mycars" element={<MyCars />} />
-        <Route path="/*" element={<NotFound />} />
-      </Routes>
-      <Footer />
-      </Container>
-    </BrowserRouter>
+      <BrowserRouter>
+      <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          />
+      <UserProvider>
+      <Container>
+        <div className="invisible"></div>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/* USER */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/users/:id" element={<Perfil />} />
+          <Route path="/users/edit/:id" element={<Edit />} />
+          <Route path="/users/delete/:id" element={<Delete />} />
+          {/* CAR */}
+          <Route path="/cars/:id" element={<CarView />} />
+          <Route path="/cars/insert" element={<InsertCar />} />
+          <Route path="/cars/delete/:id" element={<DeleteCar />} />
+          <Route path="/cars/edit/:id" element={<EditCar />} />
+          <Route path="/cars/mycars" element={<MyCars />} />
+          <Route path="/*" element={<NotFound />} />
+        </Routes>
+        <Footer />
+        </Container>
+        </UserProvider>
+      </BrowserRouter>
   );
 }
 

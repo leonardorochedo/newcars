@@ -1,9 +1,8 @@
 import api from "../../../utils/api";
 
 // CONTEXT
-import { useContext, createContext  } from "react";
-import { useAuth } from "../../../hooks/useAuth"
-const UserContext = createContext()
+import { useContext } from "react";
+import { Context } from "../../../context/UserContext";
 
 // RRD
 import { Link, useParams } from "react-router-dom";
@@ -14,24 +13,11 @@ import { toast } from "react-toastify";
 
 export function DeleteCar() {
 
-    const { authenticated, register, login, deleteUser, logout } = useAuth() // pegando os dados de useAuth
-
-    return (
-        <UserContext.Provider value={{authenticated, register, login, deleteUser, logout}}>
-            <DeleteCarPage />
-        </UserContext.Provider>
-    )
-}
-
-function DeleteCarPage() {
-
-    const context = useContext(UserContext)
+    const { authenticated } = useContext(Context)
     const navigate = useNavigate()
     const { id } = useParams()
 
     async function buttonSubmit() {
-        // e.preventDefault()
-
         let msgText = "Veículo deletado com sucesso!"
 
         await api.delete(`/cars/delete/${id}`).then((response) => {
@@ -54,7 +40,7 @@ function DeleteCarPage() {
 
     return (
         <section className="container">
-            {context.authenticated ? (
+            {authenticated ? (
                 <>
                     <h1 className="title">Tem certeza que deseja deletar este veículo?</h1>
                     <button className="delete-button" onClick={buttonSubmit} >Sim! Deletar</button>

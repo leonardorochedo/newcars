@@ -2,9 +2,8 @@ import api from '../../../utils/api';
 import { BASE_URL } from '../../../utils/BASE_URL';
 
 // CONTEXT
-import { useState, useEffect, useContext, createContext } from 'react';
-const UserContext = createContext()
-import { useAuth } from "../../../hooks/useAuth";
+import { useState, useEffect, useContext } from 'react';
+import { Context } from "../../../context/UserContext";
 
 // RRD
 import { Link } from "react-router-dom";
@@ -18,18 +17,7 @@ import { HiOutlinePencilAlt } from "react-icons/hi";
 import { toast } from "react-toastify";
 
 export function MyCars() {
-
-    const { authenticated, register, login, deleteUser, editUser, logout } = useAuth() // pegando os dados de useAuth
-
-    return (
-        <UserContext.Provider value={{authenticated, register, login, deleteUser, editUser, logout}}>
-            <MyCarsPage />
-        </UserContext.Provider>
-    )
-}
-
-function MyCarsPage() {
-    const context = useContext(UserContext) // importanto o contexto
+    const { authenticated } = useContext(Context) // importanto o contexto
 
     const [cars, setCars] = useState([])
 
@@ -79,10 +67,10 @@ function MyCarsPage() {
 
     return (
         <section className="container">
-            {context.authenticated && (
+            {authenticated && (
                 <h1 className="title">Meus veículos!</h1>
             )}
-            {context.authenticated
+            {authenticated
             ? (
                 <div className='cars-list'>
                 {cars.length > 0 ? (
