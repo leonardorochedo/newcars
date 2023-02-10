@@ -118,16 +118,7 @@ export function EditCar() {
                 <>
                     <h1 className="title">Editando seu veículo!</h1>
                     <div className='preview-car-images-edit'>
-                        {/* {(preview > 0) && (
-                            preview.map((image, index) => (
-                                <img 
-                                    src={URL.createObjectURL(image)}
-                                    alt={car.model}
-                                    key={index}
-                                />
-                            ))
-                        )} */}
-                        {/* {car.images > 0 && (
+                        {!preview ? (
                             car.images.map((image, index) => (
                                 <img 
                                     src={`${BASE_URL}/images/cars/${image}`}
@@ -135,7 +126,15 @@ export function EditCar() {
                                     key={index}
                                 />
                             ))
-                        )} */}
+                        ) : (
+                            preview.map((image, index) => (
+                                <img 
+                                    src={URL.createObjectURL(image)}
+                                    alt={car.model}
+                                    key={index}
+                                />
+                            ))
+                        )}
                     </div>
                     <form onSubmit={handleSubmit} className="form-container">
                         <Input type="file" name="images" multiple={true} handleChangeInput={onFileChange} text="Imagens" />
