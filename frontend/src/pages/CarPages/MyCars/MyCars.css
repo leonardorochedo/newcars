@@ -63,6 +63,10 @@
 
 .car-options .car-options-sell {
   height: 2rem;
+
+  background-color: #cacaca9f;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 .car-options .car-options-sell button {
@@ -96,11 +100,11 @@
 
   .car-options .car-options-sell button {
     cursor: pointer;
-    transition: .3s;
+    transition: 0.3s;
   }
 
   .car-options .car-options-sell button:hover {
-    opacity: .75;
+    opacity: 0.75;
   }
 
   .car-options .car-options-sell button:disabled {
