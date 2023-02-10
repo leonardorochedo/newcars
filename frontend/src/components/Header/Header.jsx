@@ -1,9 +1,9 @@
 import api from "../../utils/api";
+import { BASE_URL } from "../../utils/BASE_URL";
 
 // CONTEXT
-import { useState, useEffect, useContext, createContext } from 'react';
-import { useAuth } from "../../hooks/useAuth"
-const UserContext = createContext()
+import { useState, useEffect, useContext } from 'react';
+import { Context } from "../../context/UserContext";
 
 // CSS
 import "./Header.css";
@@ -19,18 +19,7 @@ import { AiOutlineCar } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 export function Header() {
-
-  const { authenticated, register, login, logout } = useAuth() // pegando os dados de useAuth
-
-  return (
-      <UserContext.Provider value={{authenticated, register, login, logout}}>
-          <HeaderPage />
-      </UserContext.Provider>
-  )
-}
-
-function HeaderPage() {
-  const context = useContext(UserContext)
+  const { authenticated } = useContext(Context)
 
   const [user, setUser] = useState({_id: "", name: "", image: ""})
   const [navStatus, setNavStatus] = useState(false)
@@ -43,7 +32,7 @@ function HeaderPage() {
         image: response.data.user.image
       })
     });
-  }, [context.authenticated])
+  }, [authenticated])
 
   return (
     <section className="header">
@@ -61,11 +50,11 @@ function HeaderPage() {
           <img src={logo} alt="Logomarca" />
         </Link>
         <div className="button-header">
-          {context.authenticated ?
+          {authenticated ?
           <Link to={`/users/${user._id}`} className="link">
             <div className="user-header">
               {user.image ? (
-                <RoundImage src={`http://localhost:5000//images/users/${user.image}`} alt={user.name} size="rem3" />
+                <RoundImage src={`${BASE_URL}/images/users/${user.image}`} alt={user.name} size="rem3" />
               ) : (
                 <RoundImage src={userNoImage} alt={user.name} size="rem3" />
               )}

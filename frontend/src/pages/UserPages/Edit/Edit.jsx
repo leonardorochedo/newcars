@@ -12,6 +12,9 @@ import { Link, useParams } from "react-router-dom";
 import { RoundImage } from '../../../components/RoundImage/RoundImage';
 import { Input } from "../../../components/Input/Input";
 
+// MASK
+import { IMaskInput } from 'react-imask';
+
 export function Edit() {
 
     const { authenticated, editUser } = useContext(Context) // importanto o contexto
@@ -24,7 +27,7 @@ export function Edit() {
             setUser(response.data.user)
         })
     }, [])
-
+    
     function onFileChange(e) {
         setPreview(e.target.files[0]) // preview da image
         setUser({...user, [e.target.name]: e.target.files[0]}) // setando a image no perfil
@@ -57,7 +60,10 @@ export function Edit() {
                     <form onSubmit={handleSubmit} className="form-container">
                         <Input type="file" name="image" handleChangeInput={onFileChange} text="Imagem" />
                         <Input type="name" value={user.name} name="name" id="name"  handleChangeInput={handleChangeInput} text="Nome" placeholder="Digite seu nome" />
-                        <Input type="text" value={user.phone} name="phone" id="phone"  handleChangeInput={handleChangeInput} text="Celular" placeholder="Digite sua número de celular" />
+                        <div className="form-input">
+                            <label htmlFor="phone">Celular:</label>
+                            <IMaskInput mask={"(00) 000000000"} value={user.phone} name="phone" id="phone" onChange={handleChangeInput} placeholder="Digite seu celular" className="imask" />
+                        </div>
                         <Input type="email" value={user.email} name="email" id="email"  handleChangeInput={handleChangeInput} text="Email" placeholder="Digite seu e-mail" />
                         <Input type="password" name="password" id="password"  handleChangeInput={handleChangeInput} text="Senha" placeholder="Digite sua senha" />
                         <Input type="password" name="confirmpassword" id="confirmpassword"  handleChangeInput={handleChangeInput} text="Confirme sua senha" placeholder="Confirme sua senha" />

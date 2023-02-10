@@ -39,7 +39,7 @@ export function CarView() {
                     </div>
                     <div className="title-car">
                         <h1>{car.model}</h1>
-                        <h1 className="price">R${car.price}</h1>
+                        <h1 className="price">{car.price}</h1>
                     </div>
                     <h3 className="desc">Ficha técnica:</h3>
                     <div className="description">

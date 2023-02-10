@@ -86,7 +86,7 @@ export function MyCars() {
                                     <div className="car-list-info">
                                         <h3>{car.model}</h3>
                                         <h4>Ano {car.year}</h4>
-                                        <p>R$ {car.price}</p>
+                                        <p>{car.price}</p>
                                     </div>
                                     <div className="car-list-options">
                                         <Link to={`/cars/edit/${car._id}`}><HiOutlinePencilAlt size={20} color={"yellow"} /></Link>

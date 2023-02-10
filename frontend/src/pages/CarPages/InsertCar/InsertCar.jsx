@@ -3,6 +3,7 @@ import api from '../../../utils/api';
 // CONTEXT
 import { useState, useContext } from 'react';
 import { Context } from "../../../context/UserContext";
+
 // RRD
 import { Link } from "react-router-dom";
 
@@ -15,6 +16,9 @@ import { Input } from "../../../components/Input/Input";
 // API
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
+// MASK
+import { IMaskInput } from 'react-imask';
 
 export function InsertCar() {
 
@@ -121,7 +125,10 @@ export function InsertCar() {
                         <Input type="text" name="model" id="model" handleChangeInput={handleChangeInput} text="Título" placeholder="Digite seu título" />
                         <Input type="text" name="manufacturer" id="manufacturer" handleChangeInput={handleChangeInput} text="Fabricante" placeholder="Digite a fabricante" />
                         <Input type="number" name="year" id="year" handleChangeInput={handleChangeInput} text="Ano" placeholder="Digite o ano de fabricação" />
-                        <Input type="text" name="price" id="price" handleChangeInput={handleChangeInput} text="Valor" placeholder="Digite o valor" />
+                        <div className="form-input">
+                            <label htmlFor="price">Valor:</label>
+                            <IMaskInput mask={"R$00.000.000"} name="price" id="price" onChange={handleChangeInput} placeholder="Digite o valor" className="imask" />
+                        </div>
                         <div className="form-input">
                             <label htmlFor="description">Descrição:</label>
                             <textarea className='form-entry' name="description" id="description" onChange={handleChangeInput} cols="30" rows="10" placeholder="Digite uma descrição ao seu veículo..." ></textarea>
@@ -132,9 +139,9 @@ export function InsertCar() {
                                 {options.map((option) => (
                                     <>
                                         {option == "Outros" ? (
-                                            <option value={option} selected>{option}</option>
+                                            <option value={option} className="option" selected>{option}</option>
                                         ) : (
-                                            <option value={option}>{option}</option>
+                                            <option value={option} className="option">{option}</option>
                                         )}
                                     </>
                                 ))}

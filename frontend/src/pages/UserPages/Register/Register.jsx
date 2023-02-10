@@ -10,6 +10,9 @@ import { Link } from "react-router-dom";
 // COMPONENT
 import { Input } from "../../../components/Input/Input";
 
+// MASK
+import { IMaskInput } from 'react-imask';
+
 export function Register() {
 
     const [user, setUser] = useState({})
@@ -38,7 +41,10 @@ export function Register() {
                     <h1 className="title">Registre sua conta!</h1>
                     <form onSubmit={handleSubmit} className="form-container">
                         <Input type="name" name="name" id="name"  handleChangeInput={handleChangeInput} text="Nome" placeholder="Digite seu nome" />
-                        <Input type="text" name="phone" id="phone"  handleChangeInput={handleChangeInput} text="Celular" placeholder="Digite sua número de celular" />
+                        <div className="form-input">
+                            <label htmlFor="phone">Celular:</label>
+                            <IMaskInput mask={"(00) 000000000"} name="phone" id="phone" onChange={handleChangeInput} placeholder="Digite seu celular" className="imask" />
+                        </div>
                         <Input type="email" name="email" id="email"  handleChangeInput={handleChangeInput} text="Email" placeholder="Digite seu e-mail" />
                         <Input type="password" name="password" id="password"  handleChangeInput={handleChangeInput} text="Senha" placeholder="Digite sua senha" />
                         <Input type="password" name="confirmpassword" id="confirmpassword"  handleChangeInput={handleChangeInput} text="Confirme sua senha" placeholder="Confirme sua senha" />

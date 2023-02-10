@@ -40,7 +40,7 @@ export function Home() {
                     <div className="car-text">
                       <h3>{car.model}</h3>
                       <h4>Ano {car.year}</h4>
-                      <p>R$ {car.price}</p>
+                      <p>{car.price}</p>
                     </div>
                     <div className="user-info">
                       {car.user.image ? (

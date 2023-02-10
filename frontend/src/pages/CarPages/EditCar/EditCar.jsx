@@ -15,6 +15,9 @@ import { Input } from "../../../components/Input/Input";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+// MASK
+import { IMaskInput } from 'react-imask';
+
 import "./EditCar.css";
 
 export function EditCar() {
@@ -139,7 +142,10 @@ export function EditCar() {
                         <Input type="text" value={car.model} name="model" id="model" handleChangeInput={handleChangeInput} text="Título" placeholder="Digite seu título" />
                         <Input type="text" value={car.manufacturer} name="manufacturer" id="manufacturer" handleChangeInput={handleChangeInput} text="Fabricante" placeholder="Digite a fabricante" />
                         <Input type="number" value={car.year} name="year" id="year" handleChangeInput={handleChangeInput} text="Ano" placeholder="Digite o ano de fabricação" />
-                        <Input type="text" value={car.price} name="price" id="price" handleChangeInput={handleChangeInput} text="Valor" placeholder="Digite o valor" />
+                        <div className="form-input">
+                            <label htmlFor="price">Valor:</label>
+                            <IMaskInput mask={"R$00.000.000"} value={car.price} name="price" id="price" onChange={handleChangeInput} placeholder="Digite o valor" className="imask" />
+                        </div>
                         <div className="form-input">
                             <label htmlFor="description">Descrição:</label>
                             <textarea className='form-entry' value={car.description} name="description" id="description" onChange={handleChangeInput} cols="30" rows="10" placeholder="Digite uma descrição ao seu veículo..." ></textarea>
