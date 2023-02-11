@@ -27,6 +27,7 @@ export function EditCar() {
     const navigate = useNavigate()
     const [car, setCar] = useState({})
     const [preview, setPreview] = useState()
+    const [imagesCar, setImagesCar] = useState([])
 
     const options = [
         "Carro",
@@ -39,6 +40,7 @@ export function EditCar() {
     useEffect(() => {
         api.get(`/cars/${id}`).then((response) => {
             setCar(response.data.car)
+            setImagesCar(response.data.car.images)
         })
     }, [])
 
@@ -119,13 +121,10 @@ export function EditCar() {
                     <h1 className="title">Editando seu veículo!</h1>
                     <div className='preview-car-images-edit'>
                         {!preview ? (
-                            car.images.map((image, index) => (
-                                <img 
-                                    src={`${BASE_URL}/images/cars/${image}`}
-                                    alt={car.model}
-                                    key={index}
-                                />
-                            ))
+                            <img 
+                                src={`${BASE_URL}/images/cars/${imagesCar[0]}`}
+                                alt={car.model}
+                            />
                         ) : (
                             preview.map((image, index) => (
                                 <img 

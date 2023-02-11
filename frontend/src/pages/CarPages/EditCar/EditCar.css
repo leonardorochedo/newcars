@@ -5,9 +5,10 @@
 
 .preview-car-images-edit img {
   width: 10rem;
-  height: 10rem;
+  height: auto;
 
   margin: 1rem;
 
+  border-radius: 10px;
   border: 2px solid var(--primary-color);
 }

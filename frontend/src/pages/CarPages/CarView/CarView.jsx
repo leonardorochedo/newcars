@@ -22,7 +22,7 @@ export function CarView() {
             setCar(response.data.car)
         })
     }, [id])
-
+    
     return (
         <>
             {car.model && (
