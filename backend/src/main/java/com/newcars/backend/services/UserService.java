@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.newcars.backend.dtos.EditUserDto;
+import com.newcars.backend.dtos.SigninUserDto;
 import com.newcars.backend.entities.User;
+import com.newcars.backend.exceptions.ResourceNotFoundException;
 import com.newcars.backend.repositories.UserRepository;
+import com.newcars.backend.responses.ApiResponse;
 
 @Service
 public class UserService {
@@ -24,6 +27,25 @@ public class UserService {
 	public List<User> findAll() {
 		List<User> users = userRepository.findAll();
 		return users;
+	}
+	
+	public ApiResponse<User> signin(SigninUserDto user) {
+		User userFinded = userRepository.findByEmail(user.getEmail());
+		
+		// Check data
+		if (userFinded == null) {
+			throw new ResourceNotFoundException("Usuário não existente!");
+		}
+		
+		if (!user.getPassword().equals(userFinded.getPassword())) {
+			throw new RuntimeException("E-mail ou senha inválidos!");
+		}
+		
+		// Create a response
+		ApiResponse<User> response = new ApiResponse<User>("Usuário logado com sucesso!", userFinded);
+		
+		return response;
+		
 	}
 	
 	public User createUser(User user) {
