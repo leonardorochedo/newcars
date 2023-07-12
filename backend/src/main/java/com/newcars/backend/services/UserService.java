@@ -13,6 +13,8 @@ import com.newcars.backend.entities.User;
 import com.newcars.backend.exceptions.ResourceNotFoundException;
 import com.newcars.backend.repositories.UserRepository;
 import com.newcars.backend.responses.ApiResponse;
+import com.newcars.backend.responses.ApiTokenResponse;
+import com.newcars.backend.utils.JwtUtil;
 
 @Service
 public class UserService {
@@ -32,7 +34,7 @@ public class UserService {
 		return users;
 	}
 	
-	public ApiResponse<User> signin(SigninUserDto user) {
+	public ApiTokenResponse<User> signin(SigninUserDto user) {
 		User userFinded = userRepository.findByEmail(user.getEmail());
 		
 		// Check data
@@ -44,14 +46,16 @@ public class UserService {
 			throw new RuntimeException("E-mail ou senha inválidos!");
 		}
 		
+		String token = JwtUtil.generateToken(user.getEmail());
+		
 		// Create a response
-		ApiResponse<User> response = new ApiResponse<User>("Usuário logado com sucesso!", userFinded);
+		ApiTokenResponse<User> response = new ApiTokenResponse<User>("Usuário logado com sucesso!", token, userFinded);
 		
 		return response;
 		
 	}
 	
-	public ApiResponse<User> createUser(User user) {
+	public ApiTokenResponse<User> createUser(User user) {
 		// Encyrpt and hash password
 	    String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
 	    user.setPassword(hashedPassword);
@@ -63,7 +67,27 @@ public class UserService {
 			throw new ResourceNotFoundException("Erro ao criar usuário!");
 		}
 		
-		ApiResponse<User> response = new ApiResponse<User>("Usuário criado com sucesso!", newUser);
+		String token = JwtUtil.generateToken(newUser.getEmail());
+		
+		ApiTokenResponse<User> response = new ApiTokenResponse<User>("Usuário criado com sucesso!", token, newUser);
+		
+		return response;
+	}
+	
+	public ApiResponse<User> getUserByToken(String authorizationHeader) {
+		// Check token
+        String token = authorizationHeader.replace("Bearer ", "");
+        
+		boolean isValidToken = JwtUtil.validateToken(token);
+
+        if (!isValidToken) {
+            throw new RuntimeException("Token inválido!");
+        }
+
+        // Get user by email-token
+        User user = userRepository.findByEmail(JwtUtil.getEmailFromToken(token));
+        
+        ApiResponse<User> response = new ApiResponse<User>("Perfil carregado!", user);
 		
 		return response;
 	}

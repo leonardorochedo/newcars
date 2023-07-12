@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +20,7 @@ import com.newcars.backend.dtos.SigninUserDto;
 import com.newcars.backend.entities.User;
 import com.newcars.backend.exceptions.ResourceNotFoundException;
 import com.newcars.backend.responses.ApiResponse;
+import com.newcars.backend.responses.ApiTokenResponse;
 import com.newcars.backend.responses.ErrorResponse;
 import com.newcars.backend.services.UserService;
 
@@ -46,7 +48,7 @@ public class UserResource {
 	@PostMapping(value = "/signin")
 	public ResponseEntity<?> signin(@RequestBody SigninUserDto user) {
 		try {
-	        ApiResponse<User> response = userService.signin(user);
+			ApiTokenResponse<User> response = userService.signin(user);
 	        
 	        return ResponseEntity.ok().body(response);
 	    } catch (ResourceNotFoundException e) {
@@ -63,7 +65,7 @@ public class UserResource {
 	@PostMapping(value = "/signout")
 	public ResponseEntity<?> signout(@RequestBody User user) {
 		try {			
-			ApiResponse<User> response = userService.createUser(user);
+			ApiTokenResponse<User> response = userService.createUser(user);
 			
 			return ResponseEntity.ok().body(response);
 		} catch (ResourceNotFoundException e) {
@@ -72,6 +74,19 @@ public class UserResource {
 	        return ResponseEntity.status(HttpStatusCode.valueOf(404)).body(errorResponse);
 	    }
 	}
+	
+	@GetMapping("/profile")
+    public ResponseEntity<?> getProfile(@RequestHeader("Authorization") String authorizationHeader) {
+		try {
+			ApiResponse<User> response = userService.getUserByToken(authorizationHeader);
+			
+			return ResponseEntity.ok().body(response);
+		} catch (RuntimeException e) {
+	    	ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+	    	
+	        return ResponseEntity.status(HttpStatusCode.valueOf(401)).body(errorResponse);
+	    }
+    }
 	
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
