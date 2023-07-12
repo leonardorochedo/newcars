@@ -89,16 +89,28 @@ public class UserResource {
     }
 	
 	@DeleteMapping(value = "/delete/{id}")
-	public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-		userService.deleteUser(id);
-		
-		return ResponseEntity.noContent().build();
+	public ResponseEntity<?> deleteUser(@RequestHeader("Authorization") String authorizationHeader, @PathVariable Long id) {
+		try {
+			userService.deleteUser(authorizationHeader, id);
+			
+			return ResponseEntity.noContent().build();
+		} catch (RuntimeException e) {
+	    	ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+	    	
+	        return ResponseEntity.status(HttpStatusCode.valueOf(401)).body(errorResponse);
+	    }
 	}
 	
 	@PatchMapping(value = "/edit/{id}")
-	public ResponseEntity<?> editUser(@PathVariable Long id, @RequestBody EditUserDto user) {
-		ApiResponse<User> response = userService.editUser(id, user);
+	public ResponseEntity<?> editUser(@RequestHeader("Authorization") String authorizationHeader, @PathVariable Long id, @RequestBody EditUserDto user) {
+		try {
+			ApiResponse<User> response = userService.editUser(authorizationHeader, id, user);
 			
-		return ResponseEntity.ok().body(response);
+			return ResponseEntity.ok().body(response);
+		} catch (RuntimeException e) {
+	    	ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+	    	
+	        return ResponseEntity.status(HttpStatusCode.valueOf(401)).body(errorResponse);
+	    }
 	}
 }

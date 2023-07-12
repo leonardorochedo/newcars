@@ -76,13 +76,7 @@ public class UserService {
 	
 	public ApiResponse<User> getUserByToken(String authorizationHeader) {
 		// Check token
-        String token = authorizationHeader.replace("Bearer ", "");
-        
-		boolean isValidToken = JwtUtil.validateToken(token);
-
-        if (!isValidToken) {
-            throw new RuntimeException("Token inválido!");
-        }
+		String token = verifyTokenWithAuthorizationHeader(authorizationHeader);
 
         // Get user by email-token
         User user = userRepository.findByEmail(JwtUtil.getEmailFromToken(token));
@@ -92,13 +86,17 @@ public class UserService {
 		return response;
 	}
 	
-	public void deleteUser(Long id) {
+	public void deleteUser(String authorizationHeader, Long id) {
+		verifyTokenWithAuthorizationHeader(authorizationHeader);
+		
 		userRepository.deleteById(id);
 		
 		return;
 	}
 	
-	public ApiResponse<User> editUser(Long id, EditUserDto user) {
+	public ApiResponse<User> editUser(String authorizationHeader, Long id, EditUserDto user) {
+		verifyTokenWithAuthorizationHeader(authorizationHeader);
+		
 		User editedUser = userRepository.findById(id).get();
 		
 		// Update user with new data
@@ -114,5 +112,17 @@ public class UserService {
 		ApiResponse<User> response = new ApiResponse<User>("Usuário editado com sucesso!", editedUser);
 		
 		return response;
+	}
+	
+	private String verifyTokenWithAuthorizationHeader(String authorizationHeader) {
+		String token = authorizationHeader.replace("Bearer ", "");
+        
+		boolean isValidToken = JwtUtil.validateToken(token);
+
+        if (!isValidToken) {
+            throw new RuntimeException("Token inválido!");
+        }
+        
+        return token;
 	}
 }
