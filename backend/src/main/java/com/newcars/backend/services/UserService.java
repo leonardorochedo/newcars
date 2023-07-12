@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.newcars.backend.dtos.EditUserDto;
 import com.newcars.backend.entities.User;
 import com.newcars.backend.repositories.UserRepository;
 
@@ -28,5 +29,26 @@ public class UserService {
 	public User createUser(User user) {
 		User newUser = userRepository.save(user);
 		return newUser;
+	}
+	
+	public void deleteUser(Long id) {
+		userRepository.deleteById(id);
+		return;
+	}
+	
+	public User editUser(Long id, EditUserDto user) {
+		User editedUser = userRepository.findById(id).get();
+		
+		// Update user with new data
+		editedUser.setName(user.getName());
+		editedUser.setEmail(user.getEmail());
+		editedUser.setPassword(user.getPassword());
+		editedUser.setPhone(user.getPhone());
+		editedUser.setImage(user.getImage());
+		
+		// Save data in db
+		userRepository.save(editedUser);
+		
+		return editedUser;
 	}
 }
