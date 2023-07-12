@@ -32,12 +32,14 @@ public class UserResource {
 	@GetMapping
 	public ResponseEntity<List<User>> findAll() {
 		List<User> users = userService.findAll();
+		
 		return ResponseEntity.ok().body(users);
 	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id) {
 		User user = userService.findById(id);
+		
 		return ResponseEntity.ok().body(user);
 	}
 	
@@ -45,31 +47,43 @@ public class UserResource {
 	public ResponseEntity<?> signin(@RequestBody SigninUserDto user) {
 		try {
 	        ApiResponse<User> response = userService.signin(user);
+	        
 	        return ResponseEntity.ok().body(response);
 	    } catch (ResourceNotFoundException e) {
 	        ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+	        
 	        return ResponseEntity.status(HttpStatusCode.valueOf(404)).body(errorResponse);
 	    } catch (RuntimeException e) {
 	    	ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+	    	
 	        return ResponseEntity.status(HttpStatusCode.valueOf(401)).body(errorResponse);
 	    }
 	}
 	
 	@PostMapping(value = "/signout")
-	public ResponseEntity<User> signout(@RequestBody User user) {
-		User newUser = userService.createUser(user);
-		return ResponseEntity.ok().body(newUser);
+	public ResponseEntity<?> signout(@RequestBody User user) {
+		try {			
+			ApiResponse<User> response = userService.createUser(user);
+			
+			return ResponseEntity.ok().body(response);
+		} catch (ResourceNotFoundException e) {
+	        ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+	        
+	        return ResponseEntity.status(HttpStatusCode.valueOf(404)).body(errorResponse);
+	    }
 	}
 	
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
 		userService.deleteUser(id);
+		
 		return ResponseEntity.noContent().build();
 	}
 	
 	@PatchMapping(value = "/edit/{id}")
-	public ResponseEntity<User> editUser(@PathVariable Long id, @RequestBody EditUserDto user) {
-		User editedUser = userService.editUser(id, user);
-		return ResponseEntity.ok().body(editedUser);
+	public ResponseEntity<?> editUser(@PathVariable Long id, @RequestBody EditUserDto user) {
+		ApiResponse<User> response = userService.editUser(id, user);
+			
+		return ResponseEntity.ok().body(response);
 	}
 }

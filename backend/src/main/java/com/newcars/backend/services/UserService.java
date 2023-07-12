@@ -21,11 +21,13 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional<User> user = userRepository.findById(id); // Optional return a user or a null object
+		
 		return user.get();
 	}
 	
 	public List<User> findAll() {
 		List<User> users = userRepository.findAll();
+		
 		return users;
 	}
 	
@@ -48,17 +50,26 @@ public class UserService {
 		
 	}
 	
-	public User createUser(User user) {
+	public ApiResponse<User> createUser(User user) {
 		User newUser = userRepository.save(user);
-		return newUser;
+		
+		// Check data
+		if (newUser == null) {
+			throw new ResourceNotFoundException("Erro ao criar usuário!");
+		}
+		
+		ApiResponse<User> response = new ApiResponse<User>("Usuário criado com sucesso!", newUser);
+		
+		return response;
 	}
 	
 	public void deleteUser(Long id) {
 		userRepository.deleteById(id);
+		
 		return;
 	}
 	
-	public User editUser(Long id, EditUserDto user) {
+	public ApiResponse<User> editUser(Long id, EditUserDto user) {
 		User editedUser = userRepository.findById(id).get();
 		
 		// Update user with new data
@@ -71,6 +82,8 @@ public class UserService {
 		// Save data in db
 		userRepository.save(editedUser);
 		
-		return editedUser;
+		ApiResponse<User> response = new ApiResponse<User>("Usuário editado com sucesso!", editedUser);
+		
+		return response;
 	}
 }
