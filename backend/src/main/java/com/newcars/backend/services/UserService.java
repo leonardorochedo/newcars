@@ -3,6 +3,7 @@ package com.newcars.backend.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +40,7 @@ public class UserService {
 			throw new ResourceNotFoundException("Usuário não existente!");
 		}
 		
-		if (!user.getPassword().equals(userFinded.getPassword())) {
+		if (BCrypt.checkpw(user.getPassword(), userFinded.getPassword())) {
 			throw new RuntimeException("E-mail ou senha inválidos!");
 		}
 		
@@ -51,7 +52,11 @@ public class UserService {
 	}
 	
 	public ApiResponse<User> createUser(User user) {
-		User newUser = userRepository.save(user);
+		// Encyrpt and hash password
+	    String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+	    user.setPassword(hashedPassword);
+	    
+	    User newUser = userRepository.save(user);
 		
 		// Check data
 		if (newUser == null) {
