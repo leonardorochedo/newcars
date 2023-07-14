@@ -2,11 +2,13 @@ package com.newcars.backend.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,6 +27,10 @@ public class User implements Serializable {
 	private String password;
 	private String phone;
 	private String image;
+	
+	// Relation with vehicles
+	@OneToMany(mappedBy = "user")
+	private Set<Vehicle> vehicles;
 	
 	public User() {}
 	
