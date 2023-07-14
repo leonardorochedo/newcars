@@ -25,7 +25,7 @@ export function Perfil() {
 
     useEffect(() => {
         api.get(`/users/${id}`).then((response) => {
-            setUser(response.data.user)
+            setUser(response.data)
         })
     }, [])
 
@@ -43,9 +43,9 @@ export function Perfil() {
                     <h2>{user.name}</h2>
                 </div>
                 <div className="user-links">
-                    <Link to={`/users/edit/${user._id}`} className="user-link" ><HiOutlinePencilAlt />Editar Perfil</Link>
+                    <Link to={`/users/edit/${user.id}`} className="user-link" ><HiOutlinePencilAlt />Editar Perfil</Link>
                     <p onClick={logout} className="user-link" ><FiLogOut />Sair</p>
-                    <Link to={`/users/delete/${user._id}`} className="user-link delete-link" ><FiTrash2 />Excluir Conta</Link>
+                    <Link to={`/users/delete/${user.id}`} className="user-link delete-link" ><FiTrash2 />Excluir Conta</Link>
                 </div>
                 </>
             ) : (

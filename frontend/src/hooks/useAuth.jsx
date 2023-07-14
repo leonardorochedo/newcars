@@ -33,7 +33,7 @@ export function useAuth() {
 
         try {
             // registrando o user e mandando o token para setar no localStorage
-            const data = await api.post('/users/register', user).then((response) => {
+            const data = await api.post('/users/signout', user).then((response) => {
                 return response.data
             })
 
@@ -68,7 +68,7 @@ export function useAuth() {
         let msgText = 'Login realizado com sucesso!'
 
         try {
-            const data = await api.post('/users/login', user).then((response) => {
+            const data = await api.post('/users/signin', user).then((response) => {
                 return response.data
             })
 

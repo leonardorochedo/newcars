@@ -24,7 +24,7 @@ export function Edit() {
 
     useEffect(() => {
         api.get(`/users/${id}`).then((response) => {
-            setUser(response.data.user)
+            setUser(response.data)
         })
     }, [])
     

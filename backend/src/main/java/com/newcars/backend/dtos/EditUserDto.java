@@ -1,14 +1,16 @@
 package com.newcars.backend.dtos;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class EditUserDto {
 	
 	private String name;
 	private String email;
 	private String password;
 	private String phone;
-	private String image;
+	private MultipartFile image;
 	
-	public EditUserDto(String name, String email, String password, String phone, String image) {
+	public EditUserDto(String name, String email, String password, String phone, MultipartFile image) {
 		super();
 		this.name = name;
 		this.email = email;
@@ -49,11 +51,11 @@ public class EditUserDto {
 		this.phone = phone;
 	}
 
-	public String getImage() {
+	public MultipartFile getImage() {
 		return image;
 	}
 
-	public void setImage(String image) {
+	public void setImage(MultipartFile image) {
 		this.image = image;
 	}
 	

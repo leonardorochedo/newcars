@@ -1,11 +1,15 @@
 package com.newcars.backend.services;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.newcars.backend.dtos.EditUserDto;
 import com.newcars.backend.dtos.SigninUserDto;
@@ -16,11 +20,16 @@ import com.newcars.backend.responses.ApiResponse;
 import com.newcars.backend.responses.ApiTokenResponse;
 import com.newcars.backend.utils.JwtUtil;
 
+import io.jsonwebtoken.io.IOException;
+
 @Service
 public class UserService {
 	
 	@Autowired // DI
 	private UserRepository userRepository;
+	
+	@Value("${image.upload.directory}")
+	private String imageUploadDirectory;
 	
 	public User findById(Long id) {
 		Optional<User> user = userRepository.findById(id); // Optional return a user or a null object
@@ -94,7 +103,7 @@ public class UserService {
 		return;
 	}
 	
-	public ApiResponse<User> editUser(String authorizationHeader, Long id, EditUserDto user) {
+	public ApiResponse<User> editUser(String authorizationHeader, Long id, EditUserDto user, MultipartFile image) throws java.io.IOException {
 		verifyTokenWithAuthorizationHeader(authorizationHeader);
 		
 		User editedUser = userRepository.findById(id).get();
@@ -104,7 +113,17 @@ public class UserService {
 		editedUser.setEmail(user.getEmail());
 		editedUser.setPassword(user.getPassword());
 		editedUser.setPhone(user.getPhone());
-		editedUser.setImage(user.getImage());
+		
+		// Image upload
+		String filename = String.valueOf(editedUser.getId());
+		String path = Paths.get(imageUploadDirectory, filename).toString();
+		    
+	    try {
+	        Files.copy(image.getInputStream(), Paths.get(path)); // save in dir/images
+	    } catch (IOException e) {
+	        throw new IOException("Arquivo não suportado!");
+	    }
+	    editedUser.setImage(path);
 		
 		// Save data in db
 		userRepository.save(editedUser);
