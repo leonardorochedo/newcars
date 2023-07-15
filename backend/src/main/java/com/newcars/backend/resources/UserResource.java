@@ -25,6 +25,7 @@ import com.newcars.backend.exceptions.ResourceNotFoundException;
 import com.newcars.backend.responses.ApiResponse;
 import com.newcars.backend.responses.ApiTokenResponse;
 import com.newcars.backend.responses.ErrorResponse;
+import com.newcars.backend.responses.TextResponse;
 import com.newcars.backend.services.UserService;
 
 @RestController
@@ -68,10 +69,14 @@ public class UserResource {
 	@PostMapping(value = "/signout")
 	public ResponseEntity<?> signout(@RequestBody User user) {
 		try {			
-			ApiTokenResponse<User> response = userService.createUser(user);
+			ApiTokenResponse<User> response = userService.signout(user);
 			
 			return ResponseEntity.ok().body(response);
 		} catch (ResourceNotFoundException e) {
+	        ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+	        
+	        return ResponseEntity.status(HttpStatusCode.valueOf(404)).body(errorResponse);
+	    } catch (IllegalArgumentException e) {
 	        ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
 	        
 	        return ResponseEntity.status(HttpStatusCode.valueOf(404)).body(errorResponse);
@@ -94,9 +99,9 @@ public class UserResource {
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<?> deleteUser(@RequestHeader("Authorization") String authorizationHeader, @PathVariable Long id) {
 		try {
-			userService.deleteUser(authorizationHeader, id);
+			TextResponse reponse = userService.deleteUser(authorizationHeader, id);
 			
-			return ResponseEntity.noContent().build();
+			return ResponseEntity.ok().body(reponse);
 		} catch (RuntimeException e) {
 	    	ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
 	    	

@@ -18,6 +18,7 @@ import com.newcars.backend.exceptions.ResourceNotFoundException;
 import com.newcars.backend.repositories.UserRepository;
 import com.newcars.backend.responses.ApiResponse;
 import com.newcars.backend.responses.ApiTokenResponse;
+import com.newcars.backend.responses.TextResponse;
 import com.newcars.backend.utils.JwtUtil;
 
 import io.jsonwebtoken.io.IOException;
@@ -64,7 +65,7 @@ public class UserService {
 		
 	}
 	
-	public ApiTokenResponse<User> createUser(User user) {
+	public ApiTokenResponse<User> signout(User user) {
 		// Encyrpt and hash password
 	    String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
 	    user.setPassword(hashedPassword);
@@ -72,8 +73,8 @@ public class UserService {
 	    User newUser = userRepository.save(user);
 		
 		// Check data
-		if (newUser == null) {
-			throw new ResourceNotFoundException("Erro ao criar usuário!");
+	    if (user.getName() == null || user.getEmail() == null || user.getPassword() == null || user.getPhone() == null) {
+		    throw new IllegalArgumentException("Um ou mais campos obrigatórios não estão preenchidos");
 		}
 		
 		String token = JwtUtil.generateToken(newUser.getEmail());
@@ -85,7 +86,7 @@ public class UserService {
 	
 	public ApiResponse<User> getUserByToken(String authorizationHeader) {
 		// Check token
-		String token = verifyTokenWithAuthorizationHeader(authorizationHeader);
+		String token = JwtUtil.verifyTokenWithAuthorizationHeader(authorizationHeader);
 
         // Get user by email-token
         User user = userRepository.findByEmail(JwtUtil.getEmailFromToken(token));
@@ -95,18 +96,25 @@ public class UserService {
 		return response;
 	}
 	
-	public void deleteUser(String authorizationHeader, Long id) {
-		verifyTokenWithAuthorizationHeader(authorizationHeader);
+	public TextResponse deleteUser(String authorizationHeader, Long id) {
+		JwtUtil.verifyTokenWithAuthorizationHeader(authorizationHeader);
 		
 		userRepository.deleteById(id);
 		
-		return;
+		TextResponse response = new TextResponse("Usuário deletado com suceso!");
+		
+		return response;
 	}
 	
 	public ApiResponse<User> editUser(String authorizationHeader, Long id, EditUserDto user, MultipartFile image) throws java.io.IOException {
-		verifyTokenWithAuthorizationHeader(authorizationHeader);
+		JwtUtil.verifyTokenWithAuthorizationHeader(authorizationHeader);
 		
 		User editedUser = userRepository.findById(id).get();
+		
+		// Verifgy new data
+		if (user.getName() == null || user.getEmail() == null || user.getPassword() == null || user.getPhone() == null) {
+		    throw new IllegalArgumentException("Um ou mais campos obrigatórios não estão preenchidos");
+		}
 		
 		// Update user with new data
 		editedUser.setName(user.getName());
@@ -133,15 +141,4 @@ public class UserService {
 		return response;
 	}
 	
-	private String verifyTokenWithAuthorizationHeader(String authorizationHeader) {
-		String token = authorizationHeader.replace("Bearer ", "");
-        
-		boolean isValidToken = JwtUtil.validateToken(token);
-
-        if (!isValidToken) {
-            throw new RuntimeException("Token inválido!");
-        }
-        
-        return token;
-	}
 }

@@ -52,5 +52,18 @@ public class JwtUtil {
     	
         return claims.getSubject();
     }
+    
+
+ 	public static  String verifyTokenWithAuthorizationHeader(String authorizationHeader) {
+ 		String token = authorizationHeader.replace("Bearer ", "");
+         
+ 		boolean isValidToken = JwtUtil.validateToken(token);
+
+         if (!isValidToken) {
+             throw new RuntimeException("Token inválido!");
+         }
+         
+         return token;
+ 	}
 }
 
