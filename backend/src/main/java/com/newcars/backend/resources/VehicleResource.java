@@ -96,4 +96,17 @@ public class VehicleResource {
 	    }
 	}
 	
+	@GetMapping(value = "/myvehicles")
+	public ResponseEntity<?> myVehicles(@RequestHeader("Authorization") String authorizationHeader) {
+		try {
+			List<Vehicle> vehicles = vehicleService.myVehicles(authorizationHeader);
+			
+			return ResponseEntity.ok().body(vehicles);			
+		} catch (RuntimeException e) {
+	    	ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+	    	
+	        return ResponseEntity.status(HttpStatusCode.valueOf(401)).body(errorResponse);
+	    }
+	}
+	
 }

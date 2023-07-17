@@ -166,4 +166,16 @@ public class VehicleService {
 		return response;
 	}
 	
+	public List<Vehicle> myVehicles(String authorizationHeader) {
+		// Find user
+		String token = JwtUtil.verifyTokenWithAuthorizationHeader(authorizationHeader);
+		
+		User user = userRepository.findByEmail(JwtUtil.getEmailFromToken(token));
+		
+		// Find vehicles
+		List<Vehicle> vehicles = vehicleRepository.findByUserId(user.getId());
+		
+		return vehicles;
+	}
+	
 }
