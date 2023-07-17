@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -46,6 +47,23 @@ public class VehicleResource {
 	public ResponseEntity<?> create(@RequestHeader("Authorization") String authorizationHeader, @ModelAttribute CreateVehicleDto vehicle, List<MultipartFile> images) throws IOException, IllegalArgumentException {
 		try {
 			ApiResponse<Vehicle> response = vehicleService.create(authorizationHeader, vehicle, images);
+			
+			return ResponseEntity.ok().body(response);
+		} catch (RuntimeException e) {
+	    	ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+	    	
+	        return ResponseEntity.status(HttpStatusCode.valueOf(401)).body(errorResponse);
+	    } catch (IOException e) {
+	    	ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+	    	
+	        return ResponseEntity.status(HttpStatusCode.valueOf(400)).body(errorResponse);
+	    }
+	}
+	
+	@PatchMapping(value = "/edit/{id}")
+	public ResponseEntity<?> editVehicle(@RequestHeader("Authorization") String authorizationHeader, @PathVariable Long id, @ModelAttribute CreateVehicleDto vehicle, List<MultipartFile> images) throws IOException, IllegalArgumentException {
+		try {
+			ApiResponse<Vehicle> response = vehicleService.editVehicle(authorizationHeader, id, vehicle, images);
 			
 			return ResponseEntity.ok().body(response);
 		} catch (RuntimeException e) {

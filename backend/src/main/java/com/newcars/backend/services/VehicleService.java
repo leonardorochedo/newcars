@@ -57,10 +57,9 @@ public class VehicleService {
 		    throw new IllegalArgumentException("Um ou mais campos obrigatórios não estão preenchidos");
 		}
 		
-		// List of images path
+		// Upload images
 		List<String> listOfImagesPath = new ArrayList<String>();
 		
-		// Images Upload
 		for (MultipartFile image : images) {
 			String filename = UUID.randomUUID().toString();
 			
@@ -83,6 +82,62 @@ public class VehicleService {
 		vehicleRepository.save(newVehicle);
 		
 		ApiResponse<Vehicle> response = new ApiResponse<Vehicle>("Veículo criado com sucesso!", newVehicle);
+		
+		return response;
+	}
+	
+	public ApiResponse<Vehicle> editVehicle(String authorizationHeader, Long id, CreateVehicleDto vehicle, List<MultipartFile> images) throws java.io.IOException {
+		JwtUtil.verifyTokenWithAuthorizationHeader(authorizationHeader);
+		
+		Vehicle editedVehicle = vehicleRepository.findById(id).get();
+		
+		// Verify data
+		if (vehicle.getModel() == null || vehicle.getManufacturer() == null || vehicle.getCategory() == null || vehicle.getDescription() == null || vehicle.getPrice() == null || vehicle.getYear_number() == null) {
+		    throw new IllegalArgumentException("Um ou mais campos obrigatórios não estão preenchidos");
+		}
+		
+		// Remove images
+		List<String> existingImages = editedVehicle.getImages();
+		
+		for (String imagePath : existingImages) {
+		    try {
+		        Files.deleteIfExists(Paths.get(imagePath));
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		}
+		
+		// Upload images
+		List<String> listOfImagesPath = new ArrayList<String>();
+		
+		for (MultipartFile image : images) {
+			String filename = UUID.randomUUID().toString();
+			
+			String path = Paths.get(imageUploadDirectory, filename).toString();
+			
+			
+			try {
+				Files.copy(image.getInputStream(), Paths.get(path)); // save in dir/images/vehicle
+			} catch (IOException e) {
+				throw new IOException("Arquivo não suportado!");
+			}
+			
+			listOfImagesPath.add(path);
+		}
+	    
+		// Update vehicle
+		editedVehicle.setModel(vehicle.getModel());
+		editedVehicle.setManufacturer(vehicle.getManufacturer());
+		editedVehicle.setYear_number(vehicle.getYear_number());
+		editedVehicle.setPrice(vehicle.getPrice());
+		editedVehicle.setDescription(vehicle.getDescription());
+		editedVehicle.setCategory(vehicle.getCategory());
+		editedVehicle.setImages(listOfImagesPath);
+		
+		// Save in db
+		vehicleRepository.save(editedVehicle);
+		
+		ApiResponse<Vehicle> response = new ApiResponse<Vehicle>("Veículo atualizado com sucesso!", editedVehicle);
 		
 		return response;
 	}
