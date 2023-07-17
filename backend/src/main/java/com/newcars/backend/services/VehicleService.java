@@ -18,6 +18,7 @@ import com.newcars.backend.entities.Vehicle;
 import com.newcars.backend.repositories.UserRepository;
 import com.newcars.backend.repositories.VehicleRepository;
 import com.newcars.backend.responses.ApiResponse;
+import com.newcars.backend.responses.TextResponse;
 import com.newcars.backend.utils.JwtUtil;
 
 import io.jsonwebtoken.io.IOException;
@@ -138,6 +139,29 @@ public class VehicleService {
 		vehicleRepository.save(editedVehicle);
 		
 		ApiResponse<Vehicle> response = new ApiResponse<Vehicle>("Veículo atualizado com sucesso!", editedVehicle);
+		
+		return response;
+	}
+	
+	public TextResponse deleteVehicle(String authorizationHeader, Long id) throws java.io.IOException {
+		JwtUtil.verifyTokenWithAuthorizationHeader(authorizationHeader);
+		
+		// Delete images
+		Vehicle vehicle = vehicleRepository.findById(id).get();
+		
+		List<String> existingImages = vehicle.getImages();
+		
+		for (String imagePath : existingImages) {
+		    try {
+		        Files.deleteIfExists(Paths.get(imagePath));
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+		}
+		
+		vehicleRepository.deleteById(id);
+		
+		TextResponse response = new TextResponse("Veículo deletado com suceso!");
 		
 		return response;
 	}

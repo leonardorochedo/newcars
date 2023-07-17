@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -20,6 +21,7 @@ import com.newcars.backend.dtos.CreateVehicleDto;
 import com.newcars.backend.entities.Vehicle;
 import com.newcars.backend.responses.ApiResponse;
 import com.newcars.backend.responses.ErrorResponse;
+import com.newcars.backend.responses.TextResponse;
 import com.newcars.backend.services.VehicleService;
 
 @RestController
@@ -56,7 +58,7 @@ public class VehicleResource {
 	    } catch (IOException e) {
 	    	ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
 	    	
-	        return ResponseEntity.status(HttpStatusCode.valueOf(400)).body(errorResponse);
+	        return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(errorResponse);
 	    }
 	}
 	
@@ -73,7 +75,25 @@ public class VehicleResource {
 	    } catch (IOException e) {
 	    	ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
 	    	
-	        return ResponseEntity.status(HttpStatusCode.valueOf(400)).body(errorResponse);
+	        return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(errorResponse);
 	    }
 	}
+	
+	@DeleteMapping(value = "/delete/{id}")
+	public ResponseEntity<?> deleteVehicle(@RequestHeader("Authorization") String authorizationHeader, @PathVariable Long id) throws IOException {
+		try {
+			TextResponse reponse = vehicleService.deleteVehicle(authorizationHeader, id);
+			
+			return ResponseEntity.ok().body(reponse);
+		} catch (RuntimeException e) {
+	    	ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+	    	
+	        return ResponseEntity.status(HttpStatusCode.valueOf(401)).body(errorResponse);
+	    } catch (IOException e) {
+	    	ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+	    	
+	        return ResponseEntity.status(HttpStatusCode.valueOf(500)).body(errorResponse);
+	    }
+	}
+	
 }
