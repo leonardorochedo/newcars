@@ -109,4 +109,30 @@ public class VehicleResource {
 	    }
 	}
 	
+	@PatchMapping(value = "/sale/{id}")
+	public ResponseEntity<?> sale(@RequestHeader("Authorization") String authorizationHeader, @PathVariable Long id) {
+		try {
+			TextResponse reponse = vehicleService.sale(authorizationHeader, id);
+			
+			return ResponseEntity.ok().body(reponse);
+		} catch (RuntimeException e) {
+	    	ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+	    	
+	        return ResponseEntity.status(HttpStatusCode.valueOf(401)).body(errorResponse);
+	    }
+	}
+	
+	@PatchMapping(value = "/resale/{id}")
+	public ResponseEntity<?> resale(@RequestHeader("Authorization") String authorizationHeader, @PathVariable Long id) {
+		try {
+			TextResponse reponse = vehicleService.resale(authorizationHeader, id);
+			
+			return ResponseEntity.ok().body(reponse);
+		} catch (RuntimeException e) {
+	    	ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+	    	
+	        return ResponseEntity.status(HttpStatusCode.valueOf(401)).body(errorResponse);
+	    }
+	}
+	
 }

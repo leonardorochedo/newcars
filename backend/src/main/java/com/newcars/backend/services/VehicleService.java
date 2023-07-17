@@ -178,4 +178,32 @@ public class VehicleService {
 		return vehicles;
 	}
 	
+	public TextResponse sale(String authorizationHeader, Long id) {
+		JwtUtil.verifyTokenWithAuthorizationHeader(authorizationHeader);
+		
+		Vehicle vehicle = vehicleRepository.findById(id).get();
+		
+		vehicle.setAvaiable(false);
+		
+		vehicleRepository.save(vehicle);
+		
+		TextResponse response = new TextResponse("Veículo vendido com suceso!");
+		
+		return response;
+	}
+	
+	public TextResponse resale(String authorizationHeader, Long id) {
+		JwtUtil.verifyTokenWithAuthorizationHeader(authorizationHeader);
+		
+		Vehicle vehicle = vehicleRepository.findById(id).get();
+		
+		vehicle.setAvaiable(true);
+		
+		vehicleRepository.save(vehicle);
+		
+		TextResponse response = new TextResponse("Veículo postado novamente!");
+		
+		return response;
+	}
+	
 }
