@@ -1,19 +1,38 @@
 package com.newcars.backend.services;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.newcars.backend.dtos.CreateVehicleDto;
+import com.newcars.backend.entities.User;
 import com.newcars.backend.entities.Vehicle;
+import com.newcars.backend.repositories.UserRepository;
 import com.newcars.backend.repositories.VehicleRepository;
+import com.newcars.backend.responses.ApiResponse;
+import com.newcars.backend.utils.JwtUtil;
+
+import io.jsonwebtoken.io.IOException;
 
 @Service
 public class VehicleService {
 	
 	@Autowired
 	private VehicleRepository vehicleRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Value("${image.vehicle.upload.directory}")
+	private String imageUploadDirectory;
 	
 	public List<Vehicle> findAll() {
 		List<Vehicle> vehicles = vehicleRepository.findAll();
@@ -26,4 +45,46 @@ public class VehicleService {
 		
 		return vehicle.get();
 	}
+	
+	public ApiResponse<Vehicle> create(String authorizationHeader, CreateVehicleDto vehicle, List<MultipartFile> images) throws java.io.IOException {
+		String token = JwtUtil.verifyTokenWithAuthorizationHeader(authorizationHeader);
+		
+		// Find user
+		User user = userRepository.findByEmail(JwtUtil.getEmailFromToken(token));
+		
+		// Verify data
+		if (vehicle.getModel() == null || vehicle.getManufacturer() == null || vehicle.getCategory() == null || vehicle.getDescription() == null || vehicle.getPrice() == null || vehicle.getYear_number() == null) {
+		    throw new IllegalArgumentException("Um ou mais campos obrigatórios não estão preenchidos");
+		}
+		
+		// List of images path
+		List<String> listOfImagesPath = new ArrayList<String>();
+		
+		// Images Upload
+		for (MultipartFile image : images) {
+			String filename = UUID.randomUUID().toString();
+			
+			String path = Paths.get(imageUploadDirectory, filename).toString();
+			
+			
+			try {
+				Files.copy(image.getInputStream(), Paths.get(path)); // save in dir/images/vehicle
+			} catch (IOException e) {
+				throw new IOException("Arquivo não suportado!");
+			}
+			
+			listOfImagesPath.add(path);
+		}
+	    
+		// Create vehicle
+		Vehicle newVehicle = new Vehicle(null, vehicle.getModel(), vehicle.getManufacturer(), vehicle.getYear_number(), vehicle.getPrice(), vehicle.getDescription(), vehicle.getCategory(), listOfImagesPath, true, user);
+		
+		// Save in db
+		vehicleRepository.save(newVehicle);
+		
+		ApiResponse<Vehicle> response = new ApiResponse<Vehicle>("Veículo criado com sucesso!", newVehicle);
+		
+		return response;
+	}
+	
 }

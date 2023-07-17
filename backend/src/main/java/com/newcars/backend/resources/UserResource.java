@@ -110,7 +110,7 @@ public class UserResource {
 	}
 	
 	@PatchMapping(value = "/edit/{id}")
-	public ResponseEntity<?> editUser(@RequestHeader("Authorization") String authorizationHeader, @PathVariable Long id, @ModelAttribute EditUserDto user, MultipartFile image) throws IOException {
+	public ResponseEntity<?> editUser(@RequestHeader("Authorization") String authorizationHeader, @PathVariable Long id, @ModelAttribute EditUserDto user, MultipartFile image) throws IOException, IllegalArgumentException {
 		// @ModelAttribute to accept multiform/form-data
 		try {
 			ApiResponse<User> response = userService.editUser(authorizationHeader, id, user, image);

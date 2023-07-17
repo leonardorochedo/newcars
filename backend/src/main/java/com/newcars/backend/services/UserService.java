@@ -29,19 +29,19 @@ public class UserService {
 	@Autowired // DI
 	private UserRepository userRepository;
 	
-	@Value("${image.upload.directory}")
+	@Value("${image.user.upload.directory}")
 	private String imageUploadDirectory;
-	
-	public User findById(Long id) {
-		Optional<User> user = userRepository.findById(id); // Optional return a user or a null object
-		
-		return user.get();
-	}
 	
 	public List<User> findAll() {
 		List<User> users = userRepository.findAll();
 		
 		return users;
+	}
+	
+	public User findById(Long id) {
+		Optional<User> user = userRepository.findById(id); // Optional return a user or a null object
+		
+		return user.get();
 	}
 	
 	public ApiTokenResponse<User> signin(SigninUserDto user) {
@@ -111,7 +111,7 @@ public class UserService {
 		
 		User editedUser = userRepository.findById(id).get();
 		
-		// Verifgy new data
+		// Verify new data
 		if (user.getName() == null || user.getEmail() == null || user.getPassword() == null || user.getPhone() == null) {
 		    throw new IllegalArgumentException("Um ou mais campos obrigatórios não estão preenchidos");
 		}
@@ -125,6 +125,7 @@ public class UserService {
 		// Image upload
 		String filename = String.valueOf(editedUser.getId());
 		String path = Paths.get(imageUploadDirectory, filename).toString();
+		System.out.println(imageUploadDirectory);
 		    
 	    try {
 	        Files.copy(image.getInputStream(), Paths.get(path)); // save in dir/images
