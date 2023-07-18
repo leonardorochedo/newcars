@@ -22,19 +22,19 @@ export function MyCars() {
     const [cars, setCars] = useState([])
 
     useEffect(() => {
-        api.get("/cars/mycars").then((response) => {
+        api.get("/vehicles/myvehicles").then((response) => {
           setCars(response.data.cars);
         });
       }, []);
     
       async function buttonUndoSell(id) {
-        await api.patch(`/cars/resale/${id}`).then((response) => {
+        const data = await api.patch(`/vehicles/resale/${id}`).then((response) => {
             return response.data
         })
 
         window.location.reload(true)
 
-        toast.success("Carro anunciado novamente!", {
+        toast.success(data.message, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -47,13 +47,13 @@ export function MyCars() {
       }
 
       async function buttonSellCar(id) {
-        await api.patch(`/cars/sell/${id}`).then((response) => {
+        const data = await api.patch(`/vehicles/sell/${id}`).then((response) => {
             return response.data
         })
 
         window.location.reload(true)
 
-        toast.success("Carro vendido com sucesso!", {
+        toast.success(data.message, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -79,7 +79,7 @@ export function MyCars() {
                             <div className="car-item">
                                 <div className="car-list" key={index}>
                                     <RoundImage 
-                                        src={`${BASE_URL}/images/cars/${car.images[0]}`}
+                                        src={`${BASE_URL}/images/vehicle/${car.images[0]}`}
                                         alt={car.model}
                                         size="rem5 img"
                                     />
@@ -89,21 +89,21 @@ export function MyCars() {
                                         <p>{car.price}</p>
                                     </div>
                                     <div className="car-list-options">
-                                        <Link to={`/cars/edit/${car._id}`}><HiOutlinePencilAlt size={20} color={"yellow"} /></Link>
-                                        <Link to={`/cars/delete/${car._id}`}><FiTrash2 size={20} color={"red"} /></Link>
+                                        <Link to={`/cars/edit/${car.id}`}><HiOutlinePencilAlt size={20} color={"yellow"} /></Link>
+                                        <Link to={`/cars/delete/${car.id}`}><FiTrash2 size={20} color={"red"} /></Link>
                                     </div>
                                 </div>
                                 <div className="car-options">
                                     <div className="car-options-sell">
                                         {car.available ? (
                                             <>
-                                                <button onClick={() => buttonUndoSell(car._id)} disabled >ANUNCIAR NOVAMENTE</button>
-                                                <button onClick={() => buttonSellCar(car._id)} >MARCAR COMO VENDIDO</button>
+                                                <button onClick={() => buttonUndoSell(car.id)} disabled >ANUNCIAR NOVAMENTE</button>
+                                                <button onClick={() => buttonSellCar(car.id)} >MARCAR COMO VENDIDO</button>
                                             </>
                                         ) : (
                                             <>
-                                                <button onClick={() => buttonUndoSell(car._id)} >ANUNCIAR NOVAMENTE</button>
-                                                <button onClick={() => buttonSellCar(car._id)} disabled >MARCAR COMO VENDIDO</button>
+                                                <button onClick={() => buttonUndoSell(car.id)} >ANUNCIAR NOVAMENTE</button>
+                                                <button onClick={() => buttonSellCar(car.id)} disabled >MARCAR COMO VENDIDO</button>
                                             </>
                                         )}
                                     </div>

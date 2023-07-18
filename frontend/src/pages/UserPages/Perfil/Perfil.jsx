@@ -36,7 +36,7 @@ export function Perfil() {
                 <div className="user-perfil">
                     <h1 className="title">Gerenciamento de perfil</h1>
                     {user.image ? (
-                        <RoundImage src={`${BASE_URL}/images/users/${user.image}`} alt={user.name} size="rem12" />
+                        <RoundImage src={`${BASE_URL}/images/user/${user.image}`} alt={user.name} size="rem12" />
                     ) : (
                         <RoundImage src={userNoImage} alt={user.name} size="rem12" />
                     )}

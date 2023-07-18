@@ -96,8 +96,21 @@ public class UserService {
 		return response;
 	}
 	
-	public TextResponse deleteUser(String authorizationHeader, Long id) {
+	public TextResponse deleteUser(String authorizationHeader, Long id) throws java.io.IOException {
 		JwtUtil.verifyTokenWithAuthorizationHeader(authorizationHeader);
+		
+		User user = userRepository.findById(id).get();
+		
+		// Remove image if exist
+		String imageName = user.getImage();
+		
+		if (imageName != null) {
+			try {
+				Files.deleteIfExists(Paths.get(imageUploadDirectory, imageName));
+			} catch (IOException e) {
+				throw new IOException("Arquivo já existente!");
+			}			
+		}
 		
 		userRepository.deleteById(id);
 		
@@ -116,6 +129,17 @@ public class UserService {
 		    throw new IllegalArgumentException("Um ou mais campos obrigatórios não estão preenchidos");
 		}
 		
+		// Remove image if exist
+		String imageName = editedUser.getImage();
+		
+		if (imageName != null) {
+			try {
+				Files.deleteIfExists(Paths.get(imageUploadDirectory, imageName));
+			} catch (IOException e) {
+				throw new IOException("Arquivo já existente!");
+			}			
+		}
+		
 		// Update user with new data
 		editedUser.setName(user.getName());
 		editedUser.setEmail(user.getEmail());
@@ -125,14 +149,14 @@ public class UserService {
 		// Image upload
 		String filename = String.valueOf(editedUser.getId());
 		String path = Paths.get(imageUploadDirectory, filename).toString();
-		System.out.println(imageUploadDirectory);
 		    
 	    try {
 	        Files.copy(image.getInputStream(), Paths.get(path)); // save in dir/images
 	    } catch (IOException e) {
 	        throw new IOException("Arquivo não suportado!");
 	    }
-	    editedUser.setImage(path);
+	    
+	    editedUser.setImage(filename);
 		
 		// Save data in db
 		userRepository.save(editedUser);

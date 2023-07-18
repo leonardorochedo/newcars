@@ -38,9 +38,9 @@ export function EditCar() {
     ]
 
     useEffect(() => {
-        api.get(`/cars/${id}`).then((response) => {
-            setCar(response.data.car)
-            setImagesCar(response.data.car.images)
+        api.get(`/vehicle/${id}`).then((response) => {
+            setCar(response.data)
+            setImagesCar(response.data.images)
         })
     }, [])
 
@@ -59,8 +59,6 @@ export function EditCar() {
 
     async function handleSubmit(e) {
         e.preventDefault()
-
-        let msgText = 'Veículo criado com sucesso!'
         
         const formData = new FormData()
 
@@ -78,7 +76,7 @@ export function EditCar() {
         formData.append('car', carFormData)
 
         try {
-            const data = await api.patch(`/cars/edit/${id}`, formData, {
+            const data = await api.patch(`/vehicles/edit/${id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data' // backend entender que esta indo uma imagem
                 }
@@ -88,7 +86,7 @@ export function EditCar() {
             
             navigate('/')
 
-            toast.success(msgText, {
+            toast.success(data.message, {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -122,7 +120,7 @@ export function EditCar() {
                     <div className='preview-car-images-edit'>
                         {!preview ? (
                             <img 
-                                src={`${BASE_URL}/images/cars/${imagesCar[0]}`}
+                                src={`${BASE_URL}/images/vehicle/${imagesCar[0]}`}
                                 alt={car.model}
                             />
                         ) : (

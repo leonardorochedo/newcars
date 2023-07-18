@@ -15,8 +15,9 @@ export function Home() {
   const [cars, setCars] = useState([]);
 
   useEffect(() => {
-    api.get("/cars").then((response) => {
-      setCars(response.data.cars);
+    api.get("/vehicles").then((response) => {
+      setCars(response.data);
+      console.log(cars[2].images[0])
     });
   }, []);
 
@@ -27,13 +28,13 @@ export function Home() {
           {cars.length > 0 &&
             cars.map((car, index) => (
               <>
-              {car.available && (
-                <Link to={`/cars/${car._id}`} className="car-link" key={index}>
-                <div className="car-card" key={car._id}>
+              {car.avaiable && (
+                <Link to={`/cars/${car.id}`} className="car-link" key={index}>
+                <div className="car-card" key={car.id}>
                   <div
                     className="car-image"
                     style={{
-                      backgroundImage: `url(${BASE_URL}/images/cars/${car.images[0]})`,
+                      backgroundImage: `url(${BASE_URL}/images/vehicle/${car.images[0]})`,
                     }}
                   ></div>
                   <div className="car-infos">
@@ -44,7 +45,7 @@ export function Home() {
                     </div>
                     <div className="user-info">
                       {car.user.image ? (
-                        <RoundImage src={`${BASE_URL}/images/users/${car.user.image}`} alt={car.user.name} size="rem3" />
+                        <RoundImage src={`${BASE_URL}/images/user/${car.user.image}`} alt={car.user.name} size="rem3" />
                       ) : (
                         <RoundImage src={userNoImage} alt={car.user.name} size="rem3" />
                       )}

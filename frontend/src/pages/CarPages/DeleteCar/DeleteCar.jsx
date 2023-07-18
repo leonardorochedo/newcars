@@ -18,15 +18,13 @@ export function DeleteCar() {
     const { id } = useParams()
 
     async function buttonSubmit() {
-        let msgText = "Veículo deletado com sucesso!"
-
-        await api.delete(`/cars/delete/${id}`).then((response) => {
-            return response.data
+        const data = await api.delete(`/vehicles/delete/${id}`).then((response) => {
+            return response.data.message
         })
 
         navigate('/')
             
-        toast.success(msgText, {
+        toast.success(data.message, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,

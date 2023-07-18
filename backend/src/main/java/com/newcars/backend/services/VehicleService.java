@@ -73,7 +73,7 @@ public class VehicleService {
 				throw new IOException("Arquivo não suportado!");
 			}
 			
-			listOfImagesPath.add(path);
+			listOfImagesPath.add(filename);
 		}
 	    
 		// Create vehicle
@@ -102,7 +102,7 @@ public class VehicleService {
 		
 		for (String imagePath : existingImages) {
 		    try {
-		        Files.deleteIfExists(Paths.get(imagePath));
+		        Files.deleteIfExists(Paths.get(imageUploadDirectory, imagePath));
 		    } catch (IOException e) {
 		        e.printStackTrace();
 		    }
@@ -123,7 +123,7 @@ public class VehicleService {
 				throw new IOException("Arquivo não suportado!");
 			}
 			
-			listOfImagesPath.add(path);
+			listOfImagesPath.add(filename);
 		}
 	    
 		// Update vehicle
@@ -151,9 +151,9 @@ public class VehicleService {
 		
 		List<String> existingImages = vehicle.getImages();
 		
-		for (String imagePath : existingImages) {
+		for (String filenameImage : existingImages) {
 		    try {
-		        Files.deleteIfExists(Paths.get(imagePath));
+		        Files.deleteIfExists(Paths.get(imageUploadDirectory, filenameImage));
 		    } catch (IOException e) {
 		        e.printStackTrace();
 		    }

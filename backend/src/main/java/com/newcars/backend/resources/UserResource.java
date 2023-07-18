@@ -97,7 +97,7 @@ public class UserResource {
     }
 	
 	@DeleteMapping(value = "/delete/{id}")
-	public ResponseEntity<?> deleteUser(@RequestHeader("Authorization") String authorizationHeader, @PathVariable Long id) {
+	public ResponseEntity<?> deleteUser(@RequestHeader("Authorization") String authorizationHeader, @PathVariable Long id) throws IOException {
 		try {
 			TextResponse reponse = userService.deleteUser(authorizationHeader, id);
 			
@@ -106,6 +106,10 @@ public class UserResource {
 	    	ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
 	    	
 	        return ResponseEntity.status(HttpStatusCode.valueOf(401)).body(errorResponse);
+	    } catch (IOException e) {
+	    	ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+	    	
+	        return ResponseEntity.status(HttpStatusCode.valueOf(400)).body(errorResponse);
 	    }
 	}
 	
