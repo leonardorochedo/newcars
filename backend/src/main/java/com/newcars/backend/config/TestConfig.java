@@ -24,8 +24,8 @@ public class TestConfig implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		User u1 = new User(null, "Leonardo Ferreira Rochedo", "leonardo@email.com", "123321", "33981111", "imageurlhere");
-		User u2 = new User(null, "Isabela Ariadne", "isabela@email.com", "123321", "33982222", "imageurlhere");
+		User u1 = new User(null, "Leonardo Ferreira Rochedo", "leonardo@email.com", "123321", "33981111", null);
+		User u2 = new User(null, "Isabela Ariadne", "isabela@email.com", "123321", "33982222", null);
 		
 		Vehicle v1 = new Vehicle(null, "Parati", "Volkswagen", 1991, 25000.00, "Meu xodó", "Street", Arrays.asList("image1", "image2"), true, u1);
 		Vehicle v2 = new Vehicle(null, "Gol", "Volkswagen", 1996, 18000.00, "Gol bolinhaa", "Street", Arrays.asList("image1", "image2"), true, u2);

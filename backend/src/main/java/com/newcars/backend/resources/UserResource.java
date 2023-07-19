@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.newcars.backend.dtos.CreateUserDto;
 import com.newcars.backend.dtos.EditUserDto;
 import com.newcars.backend.dtos.SigninUserDto;
 import com.newcars.backend.entities.User;
@@ -67,7 +68,7 @@ public class UserResource {
 	}
 	
 	@PostMapping(value = "/signout")
-	public ResponseEntity<?> signout(@RequestBody User user) {
+	public ResponseEntity<?> signout(@RequestBody CreateUserDto user) {
 		try {			
 			ApiTokenResponse<User> response = userService.signout(user);
 			

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.newcars.backend.dtos.CreateUserDto;
 import com.newcars.backend.dtos.EditUserDto;
 import com.newcars.backend.dtos.SigninUserDto;
 import com.newcars.backend.entities.User;
@@ -65,17 +66,23 @@ public class UserService {
 		
 	}
 	
-	public ApiTokenResponse<User> signout(User user) {
+	public ApiTokenResponse<User> signout(CreateUserDto user) {
+	    
+	    // Check data
+	    if (user.getName() == null || user.getEmail() == null || user.getPassword() == null || user.getConfirmpassword() == null || user.getPhone() == null) {
+		    throw new IllegalArgumentException("Um ou mais campos obrigatórios não estão preenchidos!");
+		}
+	    
+		if (!user.getPassword().equals(user.getConfirmpassword())) {
+			throw new IllegalArgumentException("As senhas não batem!");
+		}
+	    
 		// Encyrpt and hash password
 	    String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
 	    user.setPassword(hashedPassword);
-	    
-	    User newUser = userRepository.save(user);
 		
-		// Check data
-	    if (user.getName() == null || user.getEmail() == null || user.getPassword() == null || user.getPhone() == null) {
-		    throw new IllegalArgumentException("Um ou mais campos obrigatórios não estão preenchidos");
-		}
+	    // Storage
+	    User newUser = userRepository.save(new User(null, user.getName(), user.getEmail(), user.getPassword(), user.getPhone(), null));
 		
 		String token = JwtUtil.generateToken(newUser.getEmail());
 		
@@ -125,8 +132,12 @@ public class UserService {
 		User editedUser = userRepository.findById(id).get();
 		
 		// Verify new data
-		if (user.getName() == null || user.getEmail() == null || user.getPassword() == null || user.getPhone() == null) {
-		    throw new IllegalArgumentException("Um ou mais campos obrigatórios não estão preenchidos");
+		if (user.getName() == null || user.getEmail() == null || user.getPassword() == null || user.getConfirmpassword() == null || user.getPhone() == null) {
+		    throw new IllegalArgumentException("Um ou mais campos obrigatórios não estão preenchidos!");
+		}
+		
+		if (!user.getPassword().equals(user.getConfirmpassword())) {
+			throw new IllegalArgumentException("As senhas não batem!");
 		}
 		
 		// Remove image if exist
