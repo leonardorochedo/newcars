@@ -19,6 +19,7 @@ export function Edit() {
 
     const { authenticated, editUser } = useContext(Context) // importanto o contexto
     const [user, setUser] = useState({})
+    const [clickable, setClickable] = useState(false)
     const [preview, setPreview] = useState()
     const { id } = useParams()
 
@@ -27,6 +28,14 @@ export function Edit() {
             setUser(response.data)
         })
     }, [])
+
+    useEffect(() => {
+        if (user.image && user.password && user.confirmpassword) {
+            setClickable(true)
+        } else {
+            setClickable(false)
+        }
+    }, [user])
     
     function onFileChange(e) {
         setPreview(e.target.files[0]) // preview da image
@@ -68,7 +77,12 @@ export function Edit() {
                         <Input type="password" name="password" id="password"  handleChangeInput={handleChangeInput} text="Senha" placeholder="Digite sua senha" />
                         <Input type="password" name="confirmpassword" id="confirmpassword"  handleChangeInput={handleChangeInput} text="Confirme sua senha" placeholder="Confirme sua senha" />
                         <div className="form-buttons">
+                            {clickable
+                            ?
                             <input type="submit" value="Atualizar" />
+                            :
+                            <input className='submit-disabled' type="submit" value="Atualizar" disabled/>
+                            }
                         </div>
                     </form>
                 </>

@@ -14,6 +14,8 @@
 }
 
 .user-link {
+  cursor: pointer;
+
   font-weight: 400;
   font-family: "Roboto Condensed", sans-serif;
   text-decoration: none;
@@ -45,6 +47,6 @@
   }
 
   .user-link:hover {
-    opacity: .75;
+    opacity: 0.75;
   }
 }
