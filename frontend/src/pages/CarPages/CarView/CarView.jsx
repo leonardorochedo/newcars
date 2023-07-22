@@ -18,8 +18,8 @@ export function CarView() {
     const { id } = useParams()
 
     useEffect(() => {
-        api.get(`/cars/${id}`).then((response) => {
-            setCar(response.data.car)
+        api.get(`/vehicles/${id}`).then((response) => {
+            setCar(response.data)
         })
     }, [id])
     
@@ -31,7 +31,7 @@ export function CarView() {
                         {car.images.map((image, index) => (
                             <img
                                 className="car-image"
-                                src={`${BASE_URL}/images/cars/${image}`}
+                                src={`${BASE_URL}/images/vehicle/${image}`}
                                 alt={car.model}
                                 key={index}
                             ></img>
@@ -39,7 +39,7 @@ export function CarView() {
                     </div>
                     <div className="title-car">
                         <h1>{car.model}</h1>
-                        <h1 className="price">{car.price}</h1>
+                        <h1 className="price">R${car.price}</h1>
                     </div>
                     <h3 className="desc">Ficha técnica:</h3>
                     <div className="description">
@@ -53,7 +53,7 @@ export function CarView() {
                         </div>
                         <div className="card-desc">
                             <h3>Ano:</h3>
-                            <p>{car.year}</p>
+                            <p>{car.year_number}</p>
                         </div>
                         <div className="card-desc">
                             <h3>Categoria:</h3>
@@ -71,7 +71,7 @@ export function CarView() {
                     <div className="contact-owner">
                         <div className="user-info">
                             {car.user.image ? (
-                                <RoundImage src={`http://localhost:5000/images/users/${car.user.image}`} alt={car.user.name} size="rem3" />
+                                <RoundImage src={`${BASE_URL}/images/user/${car.user.image}`} alt={car.user.name} size="rem3" />
                             ) : (
                                 <RoundImage src={userNoImage} alt={car.user.name} size="rem3" />
                             )}

@@ -1,7 +1,7 @@
 import api from '../../../utils/api';
 
 // CONTEXT
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Context } from "../../../context/UserContext";
 
 // RRD
@@ -17,15 +17,13 @@ import { Input } from "../../../components/Input/Input";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-// MASK
-import { IMaskInput } from 'react-imask';
-
 export function InsertCar() {
 
     const {authenticated } = useContext(Context) // importanto o contexto
     const navigate = useNavigate()
     const [car, setCar] = useState({})
     const [preview, setPreview] = useState([])
+    const [clickable, setClickable] = useState(false)
 
     const options = [
         "Carro",
@@ -34,6 +32,14 @@ export function InsertCar() {
         "Caminhão",
         "Outros"
     ]
+
+    useEffect(() => {
+        if (car.images && car.model && car.manufacturer && car.year_number && car.price && car.description && car.category) {
+            setClickable(true)
+        } else {
+            setClickable(false)
+        }
+    }, [car])
 
     function onFileChange(e) {
         setPreview(Array.from(e.target.files))
@@ -51,7 +57,7 @@ export function InsertCar() {
     async function handleSubmit(e) {
         e.preventDefault()
 
-        let msgText = 'Veículo criado com sucesso!'
+        let msgText = ''
         
         const formData = new FormData()
 
@@ -69,11 +75,12 @@ export function InsertCar() {
         formData.append('car', carFormData)
 
         try {
-            const data = await api.post('/cars/insert', formData, {
+            const data = await api.post('/vehicles/create', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data' // backend entender que esta indo uma imagem
                 }
             }).then((response) => {
+                msgText = response.data.message
                 return response.data
             })
             
@@ -124,11 +131,8 @@ export function InsertCar() {
                         <Input type="file" name="images" multiple={true} handleChangeInput={onFileChange} text="Imagens" />
                         <Input type="text" name="model" id="model" handleChangeInput={handleChangeInput} text="Título" placeholder="Digite seu título" />
                         <Input type="text" name="manufacturer" id="manufacturer" handleChangeInput={handleChangeInput} text="Fabricante" placeholder="Digite a fabricante" />
-                        <Input type="number" name="year" id="year" handleChangeInput={handleChangeInput} text="Ano" placeholder="Digite o ano de fabricação" />
-                        <div className="form-input">
-                            <label htmlFor="price">Valor:</label>
-                            <IMaskInput mask={"R$00.000.000"} name="price" id="price" onChange={handleChangeInput} placeholder="Digite o valor" className="imask" />
-                        </div>
+                        <Input type="number" name="year_number" id="year_number" handleChangeInput={handleChangeInput} text="Ano" placeholder="Digite o ano de fabricação" />
+                        <Input type="number" name="price" id="price" handleChangeInput={handleChangeInput} text="Valor" placeholder="Digite o valor" />
                         <div className="form-input">
                             <label htmlFor="description">Descrição:</label>
                             <textarea className='form-entry' name="description" id="description" onChange={handleChangeInput} cols="30" rows="10" placeholder="Digite uma descrição ao seu veículo..." ></textarea>
@@ -148,7 +152,12 @@ export function InsertCar() {
                             </select>
                         </div>
                         <div className="form-buttons">
+                            {clickable
+                            ?
                             <input type="submit" value="Criar" />
+                            :
+                            <input className='submit-disabled' type="submit" value="Criar" disabled/>
+                            }
                         </div>
                     </form>
                 </>

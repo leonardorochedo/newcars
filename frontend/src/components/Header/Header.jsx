@@ -21,15 +21,15 @@ import { Link } from "react-router-dom";
 export function Header() {
   const { authenticated } = useContext(Context)
 
-  const [user, setUser] = useState({_id: "", name: "", image: ""})
+  const [user, setUser] = useState({id: "", name: "", image: ""})
   const [navStatus, setNavStatus] = useState(false)
 
   useEffect(() => {
-    api.get("/users/single").then((response) => {
+    api.get("/users/profile").then((response) => {
       setUser({
-        _id: response.data.user._id,
-        name: response.data.user.name,
-        image: response.data.user.image
+        id: response.data.data.id,
+        name: response.data.data.name,
+        image: response.data.data.image
       })
     });
   }, [authenticated])
@@ -51,10 +51,10 @@ export function Header() {
         </Link>
         <div className="button-header">
           {authenticated ?
-          <Link to={`/users/${user._id}`} className="link">
+          <Link to={`/users/${user.id}`} className="link">
             <div className="user-header">
               {user.image ? (
-                <RoundImage src={`${BASE_URL}/images/users/${user.image}`} alt={user.name} size="rem3" />
+                <RoundImage src={`${BASE_URL}/images/user/${user.image}`} alt={user.name} size="rem3" />
               ) : (
                 <RoundImage src={userNoImage} alt={user.name} size="rem3" />
               )}

@@ -18,9 +18,11 @@ export function DeleteCar() {
     const { id } = useParams()
 
     async function buttonSubmit() {
-        let msgText = "Veículo deletado com sucesso!"
 
-        await api.delete(`/cars/delete/${id}`).then((response) => {
+        let msgText = ''
+
+        const data = await api.delete(`/vehicles/delete/${id}`).then((response) => {
+            msgText = response.data.message
             return response.data
         })
 

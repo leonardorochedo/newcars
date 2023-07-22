@@ -25,7 +25,7 @@ export function Perfil() {
 
     useEffect(() => {
         api.get(`/users/${id}`).then((response) => {
-            setUser(response.data.user)
+            setUser(response.data)
         })
     }, [])
 
@@ -36,16 +36,16 @@ export function Perfil() {
                 <div className="user-perfil">
                     <h1 className="title">Gerenciamento de perfil</h1>
                     {user.image ? (
-                        <RoundImage src={`${BASE_URL}/images/users/${user.image}`} alt={user.name} size="rem12" />
+                        <RoundImage src={`${BASE_URL}/images/user/${user.image}`} alt={user.name} size="rem12" />
                     ) : (
                         <RoundImage src={userNoImage} alt={user.name} size="rem12" />
                     )}
                     <h2>{user.name}</h2>
                 </div>
                 <div className="user-links">
-                    <Link to={`/users/edit/${user._id}`} className="user-link" ><HiOutlinePencilAlt />Editar Perfil</Link>
+                    <Link to={`/users/edit/${user.id}`} className="user-link" ><HiOutlinePencilAlt />Editar Perfil</Link>
                     <p onClick={logout} className="user-link" ><FiLogOut />Sair</p>
-                    <Link to={`/users/delete/${user._id}`} className="user-link delete-link" ><FiTrash2 />Excluir Conta</Link>
+                    <Link to={`/users/delete/${user.id}`} className="user-link delete-link" ><FiTrash2 />Excluir Conta</Link>
                 </div>
                 </>
             ) : (
