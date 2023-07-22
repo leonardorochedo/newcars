@@ -65,15 +65,25 @@ Já o backend tem duas maneiras de ser iniciado, pelo banco de dados H2 e pelo M
 cd backend
 ```
 
-2. Localize o arquivo application.properties e deixe a primeira linha como default (caso queira rodar com o ambiente MySQL) ou como test (caso queira rodar com o banco de dados H2):
+2. Localize o arquivo application.properties e deixe a primeira linha como default (caso queira rodar com o ambiente MySQL):
 
 ```
-spring.profiles.active={SUA_ESCOLHA}
+spring.profiles.active=default
 ```
 
-Por padrão estará como default (MYSQL).
+3. Ou como test (caso queira rodar com o banco de dados H2)
 
-3. Em sua IDE (Eclipse, IntelliJ, Spring Tools Suite) inicie a aplicação no arquivo
+```
+spring.profiles.active=test
+```
+
+4. Caso deixou em default rode este comando em seu MySQL:
+
+```
+CREATE SCHEMA newcars
+```
+
+5. Em sua IDE (Eclipse, IntelliJ, Spring Tools Suite) inicie a aplicação no arquivo
 
 ```
 BackendApplication.java
