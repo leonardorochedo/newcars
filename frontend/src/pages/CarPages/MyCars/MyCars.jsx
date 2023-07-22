@@ -23,18 +23,22 @@ export function MyCars() {
 
     useEffect(() => {
         api.get("/vehicles/myvehicles").then((response) => {
-          setCars(response.data.cars);
+            setCars(response.data);
         });
       }, []);
     
       async function buttonUndoSell(id) {
+
+        let msgText = ''
+
         const data = await api.patch(`/vehicles/resale/${id}`).then((response) => {
+            msgText = response.data.message
             return response.data
         })
 
         window.location.reload(true)
 
-        toast.success(data.message, {
+        toast.success(msgText, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -47,13 +51,17 @@ export function MyCars() {
       }
 
       async function buttonSellCar(id) {
-        const data = await api.patch(`/vehicles/sell/${id}`).then((response) => {
+
+        let msgText = ''
+
+        const data = await api.patch(`/vehicles/sale/${id}`).then((response) => {
+            msgText = response.data.message
             return response.data
         })
 
         window.location.reload(true)
 
-        toast.success(data.message, {
+        toast.success(msgText, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -85,7 +93,7 @@ export function MyCars() {
                                     />
                                     <div className="car-list-info">
                                         <h3>{car.model}</h3>
-                                        <h4>Ano {car.year}</h4>
+                                        <h4>Ano {car.year_number}</h4>
                                         <p>{car.price}</p>
                                     </div>
                                     <div className="car-list-options">
@@ -95,7 +103,7 @@ export function MyCars() {
                                 </div>
                                 <div className="car-options">
                                     <div className="car-options-sell">
-                                        {car.available ? (
+                                        {car.avaiable ? (
                                             <>
                                                 <button onClick={() => buttonUndoSell(car.id)} disabled >ANUNCIAR NOVAMENTE</button>
                                                 <button onClick={() => buttonSellCar(car.id)} >MARCAR COMO VENDIDO</button>

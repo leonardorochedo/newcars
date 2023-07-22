@@ -15,9 +15,6 @@ import { Input } from "../../../components/Input/Input";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-// MASK
-import { IMaskInput } from 'react-imask';
-
 import "./EditCar.css";
 
 export function EditCar() {
@@ -28,6 +25,7 @@ export function EditCar() {
     const [car, setCar] = useState({})
     const [preview, setPreview] = useState()
     const [imagesCar, setImagesCar] = useState([])
+    const [clickable, setClickable] = useState(false)
 
     const options = [
         "Carro",
@@ -38,11 +36,20 @@ export function EditCar() {
     ]
 
     useEffect(() => {
-        api.get(`/vehicle/${id}`).then((response) => {
+        api.get(`/vehicles/${id}`).then((response) => {
             setCar(response.data)
             setImagesCar(response.data.images)
+            setCar({...car, images: ""}) // unset images
         })
     }, [])
+
+    useEffect(() => {
+        if (car.images && car.model && car.manufacturer && car.year_number && car.price && car.description && car.category) {
+            setClickable(true)
+        } else {
+            setClickable(false)
+        }
+    }, [car])
 
     function onFileChange(e) {
         setPreview(Array.from(e.target.files))
@@ -60,6 +67,8 @@ export function EditCar() {
     async function handleSubmit(e) {
         e.preventDefault()
         
+        let msgText = ''
+
         const formData = new FormData()
 
         // criando um formData pois como estamos mandando um array de imagens dentro de user ia acusar erro
@@ -81,12 +90,13 @@ export function EditCar() {
                     'Content-Type': 'multipart/form-data' // backend entender que esta indo uma imagem
                 }
             }).then((response) => {
+                msgText = response.data.message
                 return response.data
             })
             
             navigate('/')
 
-            toast.success(data.message, {
+            toast.success(msgText, {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -117,6 +127,7 @@ export function EditCar() {
             ? (
                 <>
                     <h1 className="title">Editando seu veículo!</h1>
+                    <h3>Você precisa adicionar novamente as imagens!</h3>
                     <div className='preview-car-images-edit'>
                         {!preview ? (
                             <img 
@@ -137,11 +148,8 @@ export function EditCar() {
                         <Input type="file" name="images" multiple={true} handleChangeInput={onFileChange} text="Imagens" />
                         <Input type="text" value={car.model} name="model" id="model" handleChangeInput={handleChangeInput} text="Título" placeholder="Digite seu título" />
                         <Input type="text" value={car.manufacturer} name="manufacturer" id="manufacturer" handleChangeInput={handleChangeInput} text="Fabricante" placeholder="Digite a fabricante" />
-                        <Input type="number" value={car.year} name="year" id="year" handleChangeInput={handleChangeInput} text="Ano" placeholder="Digite o ano de fabricação" />
-                        <div className="form-input">
-                            <label htmlFor="price">Valor:</label>
-                            <IMaskInput mask={"R$00.000.000"} value={car.price} name="price" id="price" onChange={handleChangeInput} placeholder="Digite o valor" className="imask" />
-                        </div>
+                        <Input type="number" value={car.year_number} name="year_number" id="year_number" handleChangeInput={handleChangeInput} text="Ano" placeholder="Digite o ano de fabricação" />
+                        <Input type="number"value={car.price} name="price" id="price" handleChangeInput={handleChangeInput} text="Valor" placeholder="Digite o valor" />
                         <div className="form-input">
                             <label htmlFor="description">Descrição:</label>
                             <textarea className='form-entry' value={car.description} name="description" id="description" onChange={handleChangeInput} cols="30" rows="10" placeholder="Digite uma descrição ao seu veículo..." ></textarea>
@@ -161,7 +169,12 @@ export function EditCar() {
                             </select>
                         </div>
                         <div className="form-buttons">
+                            {clickable
+                            ?
                             <input type="submit" value="Atualizar" />
+                            :
+                            <input className='submit-disabled' type="submit" value="Atualizar" disabled/>
+                            }
                         </div>
                     </form>
                 </>

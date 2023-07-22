@@ -29,11 +29,12 @@ export function useAuth() {
 
     async function register(user) {
 
-        let msgText = 'Cadastro realizado com sucesso!'
+        let msgText = ''
 
         try {
             // registrando o user e mandando o token para setar no localStorage
             const data = await api.post('/users/signout', user).then((response) => {
+                msgText = response.data.message
                 return response.data
             })
 
@@ -65,10 +66,11 @@ export function useAuth() {
     }
 
     async function login(user) {
-        let msgText = 'Login realizado com sucesso!'
+        let msgText = ''
 
         try {
             const data = await api.post('/users/signin', user).then((response) => {
+                msgText = response.data.message
                 return response.data
             })
 
@@ -100,10 +102,11 @@ export function useAuth() {
     }
 
     async function deleteUser(id) {
-        let msgText = 'Conta deletada com sucesso!'
+        let msgText = ''
 
         try {
             const data = await api.delete(`/users/delete/${id}`).then((response) => {
+                msgText = response.data.message
                 return response.data
             })
 
@@ -140,7 +143,7 @@ export function useAuth() {
     }
 
     async function editUser(user, id) {
-        let msgText = 'Usuário atualizado com sucesso!'
+        let msgText = ''
 
         try {
             const data = await api.patch(`/users/edit/${id}`, user, {
@@ -148,6 +151,7 @@ export function useAuth() {
                     'Content-Type': 'multipart/form-data' // backend entender que esta indo uma imagem
                 }
             }).then((response) => {
+                msgText = response.data.message
                 return response.data
             })
             
