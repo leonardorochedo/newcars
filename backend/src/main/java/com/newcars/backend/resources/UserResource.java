@@ -22,6 +22,7 @@ import com.newcars.backend.dtos.CreateUserDto;
 import com.newcars.backend.dtos.EditUserDto;
 import com.newcars.backend.dtos.SigninUserDto;
 import com.newcars.backend.entities.User;
+import com.newcars.backend.exceptions.ExistUserException;
 import com.newcars.backend.exceptions.ResourceNotFoundException;
 import com.newcars.backend.responses.ApiResponse;
 import com.newcars.backend.responses.ApiTokenResponse;
@@ -60,7 +61,7 @@ public class UserResource {
 	        ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
 	        
 	        return ResponseEntity.status(HttpStatusCode.valueOf(404)).body(errorResponse);
-	    } catch (RuntimeException e) {
+	    } catch (IllegalArgumentException e) {
 	    	ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
 	    	
 	        return ResponseEntity.status(HttpStatusCode.valueOf(401)).body(errorResponse);
@@ -73,7 +74,11 @@ public class UserResource {
 			ApiTokenResponse<User> response = userService.signout(user);
 			
 			return ResponseEntity.ok().body(response);
-		} catch (ResourceNotFoundException e) {
+		} catch (ExistUserException e) {
+	        ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
+	        
+	        return ResponseEntity.status(HttpStatusCode.valueOf(404)).body(errorResponse);
+	    } catch (ResourceNotFoundException e) {
 	        ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
 	        
 	        return ResponseEntity.status(HttpStatusCode.valueOf(404)).body(errorResponse);

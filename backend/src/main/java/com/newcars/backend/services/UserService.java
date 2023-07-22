@@ -15,6 +15,7 @@ import com.newcars.backend.dtos.CreateUserDto;
 import com.newcars.backend.dtos.EditUserDto;
 import com.newcars.backend.dtos.SigninUserDto;
 import com.newcars.backend.entities.User;
+import com.newcars.backend.exceptions.ExistUserException;
 import com.newcars.backend.exceptions.ResourceNotFoundException;
 import com.newcars.backend.repositories.UserRepository;
 import com.newcars.backend.responses.ApiResponse;
@@ -53,8 +54,8 @@ public class UserService {
 			throw new ResourceNotFoundException("Usuário não existente!");
 		}
 		
-		if (BCrypt.checkpw(user.getPassword(), userFinded.getPassword())) {
-			throw new RuntimeException("E-mail ou senha inválidos!");
+		if (!BCrypt.checkpw(user.getPassword(), userFinded.getPassword())) {
+			throw new IllegalArgumentException("E-mail ou senha inválidos!");
 		}
 		
 		String token = JwtUtil.generateToken(user.getEmail());
@@ -63,12 +64,16 @@ public class UserService {
 		ApiTokenResponse<User> response = new ApiTokenResponse<User>("Usuário logado com sucesso!", token, userFinded);
 		
 		return response;
-		
 	}
 	
 	public ApiTokenResponse<User> signout(CreateUserDto user) {
-	    
-	    // Check data
+		User userFinded = userRepository.findByEmail(user.getEmail());
+		
+		// Check data
+		if (userFinded != null) {
+			throw new ExistUserException("Usuário existente!");
+		}
+		
 	    if (user.getName() == null || user.getEmail() == null || user.getPassword() == null || user.getConfirmpassword() == null || user.getPhone() == null) {
 		    throw new IllegalArgumentException("Um ou mais campos obrigatórios não estão preenchidos!");
 		}
@@ -78,7 +83,8 @@ public class UserService {
 		}
 	    
 		// Encyrpt and hash password
-	    String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+		String fixedSalt = "$2a$12$BQfBVhn6AyUbA1QljSUnU.";
+	    String hashedPassword = BCrypt.hashpw(user.getPassword(), fixedSalt);
 	    user.setPassword(hashedPassword);
 		
 	    // Storage
