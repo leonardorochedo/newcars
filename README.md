@@ -57,6 +57,13 @@ npm install
 npm run dev
 ```
 
+5. Crie os seguintes diretórios que irão armazenar as imagens:
+
+- `backend/images`
+- `backend/images/user`
+- `backend/images/vehicle`
+
+
 Já o backend tem duas maneiras de ser iniciado, pelo banco de dados H2 e pelo MySQL, porém no MySQL você deve ter instalado em seu dispositivo, já o H2 não!
 
 1. Acesse o diretório backend
