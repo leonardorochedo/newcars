@@ -12,25 +12,26 @@ Primeiro projeto fullstack que fiz independente, curti muito cada rota e endpoin
 
 ### Frontend
 
-axios
-react-icons
-react-imask
-react-router-dom
-react-toastify
+- React
+- Axios
+- React Icons
+- React IMask
+- React Router Dom
+- React Toastify
 
 ### Backend
 
-bcrypt
-cors
-express
-jsonwebtoken
-mongoose
-multer
-nodemon
+- Spring Boot
+- H2 Database
+- JDBC MySQL
+- JPA Hibernate
+- BCrypt
+- Java JWT
+- JUnit
 
 ## Rode em sua máquina
 
-Para conseguir rodar esse projeto em sua máquina você deve ter <i>Node / NPM, MongoDB</i> instalado previamente!
+Para conseguir rodar esse projeto em sua máquina você deve ter <i>Node / NPM e Java</i> instalado previamente!
 
 1. Clone o repositório
 
@@ -56,20 +57,47 @@ npm install
 npm run dev
 ```
 
-5. Acesse o backend
+Já o backend tem duas maneiras de ser iniciado, pelo banco de dados H2 e pelo MySQL, porém no MySQL você deve ter instalado em seu dispositivo, já o H2 não!
+
+1. Acesse o diretório backend
 
 ```
 cd backend
 ```
 
-6. Baixe as dependências
+2. Localize o arquivo application.properties e deixe a primeira linha como default (caso queira rodar com o ambiente MySQL):
 
 ```
-npm install
+spring.profiles.active=default
 ```
 
-7. Inicie o backend
+3. Ou como test (caso queira rodar com o banco de dados H2)
+
 ```
-npm start
+spring.profiles.active=test
 ```
-Após os passos acima o projeto estará rodando na URL *http://localhost:5173*
+
+4. Caso deixou em default rode este comando em seu MySQL:
+
+```
+CREATE SCHEMA newcars
+```
+
+5. Em sua IDE (Eclipse, IntelliJ, Spring Tools Suite) inicie a aplicação no arquivo
+
+```
+BackendApplication.java
+```
+
+Após os passos acima o projeto estará rodando na URL *http://localhost:5173* e o backend em *http://localhost:8080*
+
+## Testes
+
+Foi implementado testes de integração e unitários utilizando JUnit, estão acessíveis no diretório:
+
+```
+src/test/java
+```
+
+Lembrando que todos os testes rodam no banco H2 que é um banco em memória, o que facilita para a implementação do código.
+
