@@ -157,10 +157,14 @@ public class UserService {
 			}			
 		}
 		
+		// Hash password
+		String fixedSalt = "$2a$12$BQfBVhn6AyUbA1QljSUnU.";
+	    String hashedPassword = BCrypt.hashpw(user.getPassword(), fixedSalt);
+		
 		// Update user with new data
 		editedUser.setName(user.getName());
 		editedUser.setEmail(user.getEmail());
-		editedUser.setPassword(user.getPassword());
+		editedUser.setPassword(hashedPassword);
 		editedUser.setPhone(user.getPhone());
 		
 		// Image upload
