@@ -149,7 +149,7 @@ export function EditCar() {
                         <Input type="text" value={car.model} name="model" id="model" handleChangeInput={handleChangeInput} text="Título" placeholder="Digite seu título" />
                         <Input type="text" value={car.manufacturer} name="manufacturer" id="manufacturer" handleChangeInput={handleChangeInput} text="Fabricante" placeholder="Digite a fabricante" />
                         <Input type="number" value={car.year_number} name="year_number" id="year_number" handleChangeInput={handleChangeInput} text="Ano" placeholder="Digite o ano de fabricação" />
-                        <Input type="number"value={car.price} name="price" id="price" handleChangeInput={handleChangeInput} text="Valor" placeholder="Digite o valor" />
+                        <Input type="number"value={car.price} name="price" id="price" handleChangeInput={handleChangeInput} text="Valor" placeholder="Digite o valor sem víruglas ou pontos" />
                         <div className="form-input">
                             <label htmlFor="description">Descrição:</label>
                             <textarea className='form-entry' value={car.description} name="description" id="description" onChange={handleChangeInput} cols="30" rows="10" placeholder="Digite uma descrição ao seu veículo..." ></textarea>
