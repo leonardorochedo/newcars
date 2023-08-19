@@ -100,4 +100,3 @@ src/test/java
 ```
 
 Lembrando que todos os testes rodam no banco H2 que é um banco em memória, o que facilita para a implementação do código.
-
