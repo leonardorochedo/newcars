@@ -46,8 +46,8 @@ export function Register() {
                             <IMaskInput mask={"(00) 000000000"} name="phone" id="phone" onChange={handleChangeInput} placeholder="Digite seu celular" className="imask" />
                         </div>
                         <Input type="email" name="email" id="email"  handleChangeInput={handleChangeInput} text="Email" placeholder="Digite seu e-mail" />
-                        <Input type="password" name="password" id="password"  handleChangeInput={handleChangeInput} text="Senha" placeholder="Digite sua senha" />
-                        <Input type="password" name="confirmpassword" id="confirmpassword"  handleChangeInput={handleChangeInput} text="Confirme sua senha" placeholder="Confirme sua senha" />
+                        <Input type="password" name="password" minLength={8} id="password"  handleChangeInput={handleChangeInput} text="Senha" placeholder="Digite sua senha" />
+                        <Input type="password" name="confirmpassword" minLength={8} id="confirmpassword"  handleChangeInput={handleChangeInput} text="Confirme sua senha" placeholder="Confirme sua senha" />
                         <div className="form-buttons">
                             <input type="submit" value="Registrar" />
                             <p>Já tem uma conta? <Link to="/login" className="link"><span>Clique aqui.</span></Link></p>
