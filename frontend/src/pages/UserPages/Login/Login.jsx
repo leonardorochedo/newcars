@@ -36,7 +36,7 @@ export function Login() {
                     <h1 className="title">Entre com sua conta!</h1>
                     <form onSubmit={handleSubmit} className="form-container">
                         <Input type="email" name="email" id="email"  handleChangeInput={handleChangeInput} text="Email" placeholder="Digite seu e-mail" />
-                        <Input type="password" name="password" id="password"  handleChangeInput={handleChangeInput} text="Senha" placeholder="Digite sua senha" />
+                        <Input type="password" name="password" minLength={8} id="password"  handleChangeInput={handleChangeInput} text="Senha" placeholder="Digite sua senha" />
                         <div className="form-buttons">
                             <input type="submit" value="Entrar" />
                             <p>Não tem uma conta? <Link to="/register" className="link"><span>Clique aqui.</span></Link></p>
