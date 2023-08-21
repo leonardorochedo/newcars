@@ -12,17 +12,28 @@ export function useAuth() {
     // manipulando o token
     useEffect(() => {
         const token = localStorage.getItem('token')
+        const tokenExpiration = localStorage.getItem('tokenExpiration');
 
-        // se tiver um token ja manda pro backend atraves da API
-        if(token) {
-            api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`
-            setAuthenticate(true)
+        if (token && tokenExpiration) {
+            const expirationTimestamp = parseInt(tokenExpiration);
+            if (Date.now() < expirationTimestamp) {
+                // O token está dentro do prazo de validade
+                api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
+                setAuthenticate(true);
+            } else {
+                // O token expirou, limpar o localStorage
+                localStorage.removeItem('token');
+                localStorage.removeItem('tokenExpiration');
+            }
         }
     }, [])
 
     async function authUser(data) {
+        const expirationTimestamp = Date.now() + 24 * 60 * 60 * 1000 // 24 horas de exp pro token
+
         setAuthenticate(true)
-        localStorage.setItem('token', JSON.stringify(data.token)) // setando no localStorage
+        localStorage.setItem('token', JSON.stringify(data.token))
+        localStorage.setItem('tokenExpiration', expirationTimestamp.toString());
         navigate('/')
         window.location.reload(true) // dar um refresh quando redirecionar
     }
@@ -189,6 +200,7 @@ export function useAuth() {
         // logout geral
         setAuthenticate(false)
         localStorage.removeItem('token')
+        localStorage.removeItem('tokenExpiration')
         api.defaults.headers.Authorization = undefined
         navigate('/')
 
