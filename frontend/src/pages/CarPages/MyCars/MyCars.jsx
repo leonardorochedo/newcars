@@ -1,6 +1,8 @@
 import api from '../../../utils/api';
 import { BASE_URL } from '../../../utils/BASE_URL';
 
+import { useNavigate } from "react-router-dom";
+
 // CONTEXT
 import { useState, useEffect, useContext } from 'react';
 import { Context } from "../../../context/UserContext";
@@ -17,9 +19,12 @@ import { HiOutlinePencilAlt } from "react-icons/hi";
 import { toast } from "react-toastify";
 
 export function MyCars() {
+
     const { authenticated } = useContext(Context) // importanto o contexto
 
     const [cars, setCars] = useState([])
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         api.get("/vehicles/myvehicles").then((response) => {
@@ -36,6 +41,7 @@ export function MyCars() {
             return response.data
         })
 
+        navigate('/')
         window.location.reload(true)
 
         toast.success(msgText, {
@@ -59,6 +65,7 @@ export function MyCars() {
             return response.data
         })
 
+        navigate('/')
         window.location.reload(true)
 
         toast.success(msgText, {
@@ -94,7 +101,7 @@ export function MyCars() {
                                     <div className="car-list-info">
                                         <h3>{car.model}</h3>
                                         <h4>Ano {car.year_number}</h4>
-                                        <p>{car.price}</p>
+                                        <p>R$ {car.price}</p>
                                     </div>
                                     <div className="car-list-options">
                                         <Link to={`/cars/edit/${car.id}`}><HiOutlinePencilAlt size={20} color={"yellow"} /></Link>

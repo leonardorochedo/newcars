@@ -135,7 +135,7 @@ export function InsertCar() {
                         <Input type="number" name="price" id="price" handleChangeInput={handleChangeInput} text="Valor" placeholder="Digite o valor sem víruglas ou pontos" />
                         <div className="form-input">
                             <label htmlFor="description">Descrição:</label>
-                            <textarea className='form-entry' name="description" id="description" onChange={handleChangeInput} cols="30" rows="10" placeholder="Digite uma descrição ao seu veículo..." ></textarea>
+                            <textarea className='form-entry' name="description" id="description" maxLength={255} onChange={handleChangeInput} cols="30" rows="10" placeholder="Digite uma descrição ao seu veículo..." ></textarea>
                         </div>
                         <div className="form-input">
                             <label htmlFor="category">Selecione a categoria:</label>
