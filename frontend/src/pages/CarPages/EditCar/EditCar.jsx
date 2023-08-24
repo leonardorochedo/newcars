@@ -39,12 +39,11 @@ export function EditCar() {
         api.get(`/vehicles/${id}`).then((response) => {
             setCar(response.data)
             setImagesCar(response.data.images)
-            setCar({...car, images: ""}) // unset images
         })
     }, [])
 
     useEffect(() => {
-        if (car.images && car.model && car.manufacturer && car.year_number && car.price && car.description && car.category) {
+        if (car.images && preview && car.model && car.manufacturer && car.year_number && car.price && car.description && car.category) {
             setClickable(true)
         } else {
             setClickable(false)
@@ -152,7 +151,7 @@ export function EditCar() {
                         <Input type="number"value={car.price} name="price" id="price" handleChangeInput={handleChangeInput} text="Valor" placeholder="Digite o valor sem víruglas ou pontos" />
                         <div className="form-input">
                             <label htmlFor="description">Descrição:</label>
-                            <textarea className='form-entry' value={car.description} name="description" id="description" onChange={handleChangeInput} cols="30" rows="10" placeholder="Digite uma descrição ao seu veículo..." ></textarea>
+                            <textarea className='form-entry' value={car.description} name="description" id="description" maxLength={255} onChange={handleChangeInput} cols="30" rows="10" placeholder="Digite uma descrição ao seu veículo..." ></textarea>
                         </div>
                         <div className="form-input">
                             <label htmlFor="category">Selecione a categoria:</label>
