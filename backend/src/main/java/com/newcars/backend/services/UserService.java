@@ -159,7 +159,7 @@ public class UserService {
 		
 		// Hash password
 		String fixedSalt = "$2a$12$BQfBVhn6AyUbA1QljSUnU.";
-	    	String hashedPassword = BCrypt.hashpw(user.getPassword(), fixedSalt);
+	    String hashedPassword = BCrypt.hashpw(user.getPassword(), fixedSalt);
 		
 		// Update user with new data
 		editedUser.setName(user.getName());
